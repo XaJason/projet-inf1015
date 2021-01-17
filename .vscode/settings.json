@@ -1,0 +1,9 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "cmake.debugConfig": {
+        "args": [
+            "-p", ".*Hello,?\\\\s*world.*",
+            "-t", "Hello, world!"
+        ]
+    }
+}
