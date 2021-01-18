@@ -10,8 +10,8 @@
 #include <iomanip>
 #include <string>
 
-#include <tclap/CmdLine.h> // Librairie « header-only ».
-#include <cppitertools/range.hpp> // Librairie « header-only ».
+#include <tclap/CmdLine.h> // Librairie « headers-only ».
+#include <cppitertools/range.hpp> // Librairie « headers-only ».
 #include <boost/regex.hpp> // Librairie compilée.
 
 #include "Arguments.hpp"
