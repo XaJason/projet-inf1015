@@ -1,5 +1,14 @@
 # Procédure pour créer un exercice.
 
+## TL;DR
+
+1. Créer le repo pour le code de départ dans l'organisation contenant les templates ([github.com/INF1015-Templates](https://github.com/organizations/INF1015-Templates)) à partir d'un repo d'exercice existant ou à partir du repo de base (celui dont ce Readme fait partie).
+2. Donner un nom qui contient le session et le groupe puis choisir la visibilité selon les besoins.
+3. Mettre à jour [settings/variables.txt](settings/variables.txt) en mettant le nom du repo courant dans la variable `template_repo_fullname`, le nom de l'organisation contenant les repos d'élèves dans `org_name` et le préfixe du devoir dans `repo_filter`.
+4. Créer le devoir dans le classroom désiré en lui donnant le même nom que dans `repo_filter` de [settings/variables.txt](settings/variables.txt), moins le dernier trait.
+5. Choisir le repo de code de départ créé précédemment, ne jamais donner accès admin aux élèves pour leurs repos.
+6. Pour mettre à jour les repos des étudiants, rouler l'action *Update student repos*. Il est mieux de ne pas toucher les fichiers que les élèves modifient.
+
 ## 1. Créer le repo gabarit
 
 Il faut d'abord créer un repo qui va contenir le code de départ. On met ce repo dans l'organisation qui contient les gabarits ([github.com/INF1015-Templates](https://github.com/organizations/INF1015-Templates) dans notre cas). On va généralement prendre comme gabarit un repo d'exercices précédent ou le repo du Readme que vous lisez en ce moment. Ça réduit le *boilerplate* à ajouter par la suite tel que les workflows, les fichiers VS, le gitignore, etc.
