@@ -2,8 +2,6 @@
 /// Traite les arguments de ligne de commande à l'aide de TCLAP.
 ///
 
-#pragma once
-
 
 #include <cstddef>
 #include <cstdint>
