@@ -23,7 +23,7 @@ Remarquez la plateforme cible de votre solution (typiquement x86 ou x64). Celle-
 
 ## Utilisation sur Linux/MacOS avec VSCode et CMake
 
-Pour développer nativement sur Linux ou sur MacOS, vous pouvez utiliser Visual Studio Code, un environnement multiplateforme très populaire, et CMake, un système de production (*build system*) aussi très populaire et multiplateforme. Vcpkg s'intègre aussi très bien à ces deux outils, mais de façon moins transparente qu'avec Visual Studio.
+Pour développer nativement sur Linux ou sur MacOS, vous pouvez utiliser Visual Studio Code, un environnement multiplateforme très populaire, et CMake, un système de production (*build system*) aussi très populaire et multiplateforme. Vcpkg s'intègre bien à ces deux outils, mais de façon moins transparente qu'avec Visual Studio.
 
 ### Installation de Visual Studio Code
 
