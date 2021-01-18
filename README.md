@@ -30,7 +30,7 @@ Il faut aller sur [classroom.github.com](https://classroom.github.com/classrooms
 
 <img src="doc/assets/classroom_selection.png">
 
-On crée ensuite le devoir. On lui donne le même nom que ce qu'on met dans le `repo_filter` de [settings/variables.txt](settings/variables.txt), moins le dernier trait. Pour la visibilité, on met public si on veut que les étudiants puissent voir les réponses des autres étudiants dans la classe ou privé sinon. Par exemple, un code d'exemple en classe pourrait être exposé, un devoir noté devrait clairement être caché (plagiat). Encore là, il faut penser aux minutes Github pour les repos privés.
+On crée ensuite le devoir. On lui donne le même nom que ce qu'on met dans le `repo_filter` de [settings/variables.txt](settings/variables.txt), moins le dernier trait. Pour la visibilité, on met public si on veut que les étudiants puissent voir les réponses des autres étudiants dans la classe ou privé sinon. Par exemple, un code d'exemple en classe pourrait être exposé, un devoir noté devrait clairement être caché (plagiat). Encore là, il faut penser aux minutes Github pour les repos privés. On ne donne jamais les droits d'administrateur aux élèves pour leurs repos.
 
 <img src="doc/assets/classroom_assignments.png">
 
