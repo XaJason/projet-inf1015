@@ -10,9 +10,9 @@
 #include <iomanip>
 #include <string>
 
-#include <tclap/CmdLine.h> // Librairie « header-only ».
-#include <cppitertools/range.hpp> // Librairie « header-only ».
-#include <boost/regex.hpp> // Librairie compilée.
+#include <tclap/CmdLine.h> // Librairie Â« header-only Â».
+#include <cppitertools/range.hpp> // Librairie Â« header-only Â».
+#include <boost/regex.hpp> // Librairie compilÃ©e.
 
 #include "Arguments.hpp"
 
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 		cout << i << " ";
 	cout << "\n";
 
-	// TODO: Appliquer la regex passé en paramètre au texte passé en paramètre.
+	// TODO: Appliquer la regex passÃ© en paramÃ¨tre au texte passÃ© en paramÃ¨tre.
 	boost::regex rgx(args.pattern);
 	cout << "Pattern: " << args.pattern << "\n"
 	     << "Text: " << args.text << "\n"
