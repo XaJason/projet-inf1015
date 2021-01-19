@@ -74,7 +74,7 @@ Pour compiler et déboguer (ou exécuter) votre code, vous devez dire à VSCode 
 
 <img src="assets/vscode_cmake_kit.png">
 
-Pour compiler, utilisez le bouton *Build* de l'extension CMake Tools dans la barre de statut (raccourci F7). Pour déboguer, utilisez le bouton de la barre de statut (raccourci Shift+F5).
+Pour compiler, utilisez le bouton *Build* de l'extension CMake Tools dans la barre de statut (raccourci F7). Pour déboguer, utilisez le bouton de la barre de statut (raccourci Ctrl+F5).
 
 <img src="assets/vscode_cmake_build_run.png">
 
