@@ -3,6 +3,6 @@ settings/variables.txt
 
 README.md
 
-main.cpp
-Arguments.hpp
-Arguments.cpp
+Exercises/main.cpp
+Exercises/Arguments.hpp
+Exercises/Arguments.cpp
