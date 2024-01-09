@@ -1,19 +1,16 @@
 # Utilisation de Vcpkg pour Windows/Linux/Mac
 
-Vcpkg (sur [Github](https://github.com/microsoft/vcpkg)) est un gestionnaire de bibliothèques C et C++ pour Windows, Linux et MacOS développé par Microsoft depuis quelques années. Un peu comme *pip* le fait pour Python, Vcpkg nous permet d'installer aisément et uniformément des bibliothèques en C/C++ dans un projet, sans avoir à se préoccuper des détails d'emplacement et des caprices de chacune des bibliothèques.
+Vcpkg (sur [Github](https://github.com/microsoft/vcpkg)) est un gestionnaire de bibliothèques C et C++ pour Windows, Linux et MacOS développé par Microsoft depuis quelques années. Un peu comme *pip* le fait pour Python, Vcpkg (prononcé *V-C-package*) nous permet d'installer aisément et uniformément des bibliothèques en C/C++ dans un projet, sans avoir à se préoccuper des détails d'emplacement et des caprices de chacune des bibliothèques.
 
 ## Installation de Vcpkg
 
 La procédure d'installation est sensiblement la même pour les trois plateformes, mais les prérequis sont différents. Vous pouvez suivre les étapes données dans [la documentation officielle](https://github.com/microsoft/vcpkg#getting-started). Comme pour beaucoup d'outils de développement, il est mieux d'installer Vcpkg dans un dossier dont le chemin ne contient pas d'espaces ou d'accents. Sur Windows, `C:\vcpkg` ou `C:\dev\vcpkg` est un bon endroit; sur Unix, `/usr/local/vcpkg` est généralement une bonne idée.
-
 
 Après avoir complété l'installation, il faut ajouter une variable d'environnement `VCPKG_ROOT` contenant le chemin vers l'installation de Vcpkg (par exemple `/usr/local/vcpkg`). Vous devriez aussi ajouter ce chemin dans votre variable PATH pour plus facilement utiliser l'outil en ligne de commande.
 
 ## Utilisation sur Windows avec Visual Studio
 
 L'utilisation la plus simple et la plus transparente de Vcpkg se fait avec Visual Studio, l'IDE de Microsoft (aucune surprise jusque-là). Après avoir fait `vcpkg integrate install`, vous devriez pouvoir installer des bibliothèques et vous en servir dans un projet Visual Studio sans avoir besoin de faire autre chose. Par exemple, si on installe *cppitertools*, on peut ensuite s'en servir dans notre code sans plus d'étapes.
-
-Remarquez la plateforme cible de votre solution (typiquement x86 ou x64). Celle-ci doit correspondre avec la plateforme d'installation de Vcpkg, c'est-à-dire ce qui dit à ce dernier pour quelle plateforme installer les bibliothèques. Sans entrer dans les détails, disons que sur Windows vous avez principalement le choix entre `x86-windows` (32 bit) ou `x64-windows` (64 bit). Vous pouvez changer la plateforme d'installation de Vcpkg par défaut en le mettant dans la variable d'environnement `VCPKG_DEFAULT_TRIPLET`. Si vous ne le spécifiez pas, `x86-windows` est choisi. Les installations récentes de Visual Studio semblent préférer de compiler en x64 par défaut, vous êtes donc probablement mieux de mettre `x64-windows` dans `VCPKG_DEFAULT_TRIPLET`.
 
 <img src="assets/vcpkg_win_install_iter.png">
 
