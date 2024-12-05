@@ -16,8 +16,13 @@
 
 #include "Arguments.hpp"
 
+#include "TileMap.h"
+
+
+
 using namespace std;
 using namespace std::literals;
+using namespace gameWorld;
 
 
 int main(int argc, char* argv[])
@@ -44,5 +49,8 @@ int main(int argc, char* argv[])
 	cout << "Pattern: " << args.pattern << "\n"
 	     << "Text: " << args.text << "\n"
 	     << "Match? " << boolalpha << boost::regex_match(args.text, rgx) << "\n";
+
+	TileMap map = {};
+	map[5][5] = Tile("The Void", "A vast emptiness.");
 }
 
