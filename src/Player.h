@@ -15,7 +15,7 @@ namespace game_universe {
 		std::weak_ptr<Tile> getPosition() const { return position_; }
 		void setPosition(const std::shared_ptr<Tile>& position) { position_ = position; }
 
-		ostream& operator<<(ostream& outputStream, const Player& player);
+		friend std::ostream& operator<<(std::ostream& outputStream, const Player& player);
 
 	private:
 		std::weak_ptr<Tile> position_;

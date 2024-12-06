@@ -56,12 +56,11 @@ int main()
 	Player player1{};
 	Game game1 = { map1, player1 };
 
-	//for (auto&& tile : map1.getTiles()) {
-	//	std::cout << tile->getName() << endl;
-	//}
+	for (auto&& tile : map1.getTiles()) {
+		std::cout << tile->getName() << endl;
+	}
 
-	//cout << player1.getPosition().lock();
-	//cout << game1.player_.getPosition().lock()->getName();
+	cout << player1.getPosition().lock();
 
 	game1.startGame();
 

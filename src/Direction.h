@@ -1,8 +1,17 @@
 #pragma once
+#include <functional>
 
-enum Direction{
-	direction_north,
-	direction_south,
-	direction_west,
-	direction_east
+enum class Direction{
+	north,
+	south,
+	west,
+	east
 };
+
+namespace std {
+	template<> struct std::hash<Direction> {
+		size_t operator()(const Direction& direction) const noexcept {
+			return std::hash<int>{}(static_cast<int>((direction)));
+		}
+	};
+}

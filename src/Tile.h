@@ -3,6 +3,10 @@
 #include <memory>
 #include <array>
 #include "Direction.h"
+#include <boost/functional/hash.hpp>
+#include <unordered_map>
+
+using namespace std;
 
 namespace game_universe {
 	class Tile {
@@ -14,11 +18,19 @@ namespace game_universe {
 
 		std::string getName() const { return name_; }
 		std::string getDescription() const { return description_; }
-		std::array<std::weak_ptr<Tile>, 4> getNeighbors() const { return connections_; }
-		std::weak_ptr<Tile> getConnection(Direction direction) const { return connections_[direction]; }
+		auto getConnections() const { return connections_; }
+		std::weak_ptr<Tile> getConnection(Direction direction) const { 
+			auto it = connections_.find(direction);
+			if (it != connections_.end()) {
+				return it->second;
+			}
+			return std::weak_ptr<Tile>();
+		}
+
+		friend std::ostream& operator<<(std::ostream& outputStream, const Tile& tile);
 
 	private:
 		std::string name_, description_;
-		std::array<std::weak_ptr<Tile>, 4> connections_;
+		std::unordered_map<Direction, weak_ptr<Tile>> connections_;
 	};
 }

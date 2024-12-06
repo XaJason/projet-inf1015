@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Direction.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
