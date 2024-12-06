@@ -60,8 +60,10 @@ int main()
 	//	std::cout << tile->getName() << endl;
 	//}
 
-	cout << player1.getPosition().lock();
-	cout << game1.player_.getPosition().lock()->getName();
+	//cout << player1.getPosition().lock();
+	//cout << game1.player_.getPosition().lock()->getName();
+
+	game1.startGame();
 
 	//cout << "============================================================================\n";
 }

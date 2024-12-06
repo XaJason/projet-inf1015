@@ -17,6 +17,7 @@ namespace game_universe {
 
 		void addTile(const std::shared_ptr<Tile>& tile);
 
+		const std::string& getName() const { return name_; }
 		const std::vector<std::shared_ptr<Tile>>& getTiles() const { return tiles_; }
 		const std::weak_ptr<Tile>& getStartingTile() const { return startingTile_; }
 		bool isStartingTileNull() const { return startingTile_.lock() == nullptr; }

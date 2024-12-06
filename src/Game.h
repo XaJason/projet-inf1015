@@ -8,7 +8,7 @@ namespace game_engine {
 		Game(const game_universe::TileMap& map, const game_universe::Player& player);
 		
 		void startGame();
-	/*private:*/
+	private:
 		game_universe::TileMap map_;
 		game_universe::Player player_;
 	};

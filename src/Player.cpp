@@ -14,3 +14,7 @@ void Player::move(const Direction& direction) {
 	}
 
 }
+
+ostream& Player::operator<<(ostream& outputStream, const Player& player) {
+
+}
