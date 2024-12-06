@@ -9,12 +9,11 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <memory>
 
 #include <tclap/CmdLine.h> // Librairie « headers-only ».
 #include <cppitertools/range.hpp> // Librairie « headers-only ».
 #include <boost/regex.hpp> // Librairie compilée.
-
-#include "Arguments.hpp"
 
 #include "TileMap.h"
 
@@ -25,32 +24,43 @@ using namespace std::literals;
 using namespace gameWorld;
 
 
-int main(int argc, char* argv[])
+int main()
 {
-	// TODO: Faire un hello world.
-	cout << "Hello, world!" << "\n";
+	vector<std::shared_ptr<Tile>> tiles = {
+	std::make_shared<Tile>(Tile("Grand Entrance", "1")),
+	std::make_shared<Tile>(Tile("Game Room", "2")),
+	std::make_shared<Tile>(Tile("Dance Floor", "3")),
+	std::make_shared<Tile>(Tile("Bar & Lounge", "4")),
+	std::make_shared<Tile>(Tile("Private Theater", "5")),
+	std::make_shared<Tile>(Tile("Music Studio", "6")),
+	std::make_shared<Tile>(Tile("Bedroom", "7")),
+	std::make_shared<Tile>(Tile("Rooftop Deck", "8")),
+	std::make_shared<Tile>(Tile("Private Pool", "9")),
+	std::make_shared<Tile>(Tile("Bathroom", "10"))
+	};
 
-	// TODO: Traiter les arguments de ligne de commande.
-	Arguments args;
-	try {
-		args = parseArgs(argc, argv);
-	} catch (TCLAP::ArgException& e) {
-		cout << "Error in parsing arg " << e.argId() << ": " << e.error() << "\n";
-		return EXIT_FAILURE;
+	tiles[1]->connect(tiles[2], tiles[9], nullptr, nullptr);
+	tiles[2]->connect(tiles[3], tiles[1], nullptr, nullptr);
+	tiles[3]->connect(tiles[4], tiles[2], nullptr, nullptr);
+
+
+	TileMap map1 = { "Diddy's Mansion", tiles[1]};
+
+	for (auto&& tile : tiles) {
+		map1.addTile(tile);
 	}
 
-	// TODO: Afficher les multiples de 3 plus petits que 15.
-	for (int i : iter::range(0, 15, 3))
-		cout << i << " ";
-	cout << "\n";
+	for (auto&& tile : map1.tiles_) {
+		std::cout << tile->getName() << endl;
+	}
 
-	// TODO: Appliquer la regex passé en paramètre au texte passé en paramètre.
-	boost::regex rgx(args.pattern);
-	cout << "Pattern: " << args.pattern << "\n"
-	     << "Text: " << args.text << "\n"
-	     << "Match? " << boolalpha << boost::regex_match(args.text, rgx) << "\n";
+	cout << "============================================================================\n";
+	map1.move(direction_north);
+	cout << map1.currentTile_.lock()->getName() <<endl;
+	map1.move(direction_north);
+	cout << map1.currentTile_.lock()->getName() << endl;
+	map1.move(direction_north);
+	cout << map1.currentTile_.lock()->getName() << endl;
 
-	TileMap map = {};
-	map[5][5] = Tile("The Void", "A vast emptiness.");
 }
 

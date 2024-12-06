@@ -1,25 +1,36 @@
 #include "TileMap.h"
 #include "memory"
+#include <cassert>
+#include <cmath>
+#include "Exceptions.h"
+#include <iostream>
 
 using namespace gameWorld;
 
 // PUBLIC
 // Constructors
 // Default constructor
-TileMap::TileMap() : tiles_(height_, std::vector<Tile>(width_)), currentTile_(nullptr) {}
-
-// L-value constructor
-TileMap::TileMap(const Tile& tile) : tiles_(height_, std::vector<Tile>(width_)), currentTile_(std::make_shared<Tile>(tile)) { tiles_[height_ / 2][width_ / 2] = *currentTile_; }
-
-// R-value constructor
-TileMap::TileMap(Tile&& tile) noexcept : tiles_(height_, std::vector<Tile>(width_)), currentTile_(nullptr) {
-	auto& centerTile = tiles_[height_ / 2][width_ / 2];
-	centerTile = std::move(tile);
-	currentTile_ = std::make_shared<Tile>(centerTile);
+void TileMap::addTile(const std::shared_ptr<Tile>& tile) {
+	if (tile) {
+		tiles_.insert(tile);
+		if (isCurrentNull()) { // Checks if the currentTile is empty
+			currentTile_ = tile;
+		}
+	}
 }
 
-// Methods
-void TileMap::addTile(const Tile& tile, size_t row, size_t column) {
-	if (currentTile_ != nullptr)
-		tiles_[row][column] = tile;
+void TileMap::connectTiles(const std::shared_ptr<Tile>& tile1, const std::shared_ptr<Tile>& tile2, const Direction& direction) {
+	tile1->connect(tile2, direction);
+}
+
+void TileMap::move(const Direction& direction) {
+	if (auto origin = currentTile_.lock()) { // Verification initialization
+		if (auto destination = origin->getNeighbors()[direction].lock()) {
+			currentTile_ = destination;
+		}
+		else {
+			throw InvalidMovement("Error : No accessible room in this direction.");
+		}
+	}
+
 }
