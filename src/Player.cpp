@@ -17,7 +17,6 @@ namespace game_universe {
 
 	std::ostream& operator<<(std::ostream& outputStream, const Player& player)
 	{
-		auto tile = *(player.position_.lock());
-		return outputStream << tile;
+		return outputStream << *(player.position_.lock());
 	}
 }

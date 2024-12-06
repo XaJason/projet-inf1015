@@ -21,22 +21,22 @@ namespace game_universe {
 
     std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
     {
-        static const unordered_map<Direction, string> directionNames = {
-            {Direction::north, "North (N)"},
-            {Direction::south, "South (S)"},
-            {Direction::west, "West (W)"},
-            {Direction::east, "East (E)"}
+        static const std::unordered_map<Direction, std::vector<std::string>> directionNames = {
+  {Direction::north, {"North (N)", "n"}},
+  {Direction::south, {"South (S)", "s"}},
+  {Direction::west, {"West (W)", "w"}},
+  {Direction::east, {"East (E)", "e"}}
         };
 
         outputStream
             << "-- " << tile.name_ << " --\n"
             << tile.description_ << "\n";
 
-        //for (int i = 0; i < tile.connections_.size(); i++) {
-        //    if (const auto& temp = tile.connections_[i].lock())
-        //        Direction temp2 = i;
-        //    outputStream << temp->name_ << "is to the" << directionNames[i];
-        //}
+        for (const auto& [direction, connection] : tile.connections_) {
+            if (const auto& sharedConnection = connection.lock()) {
+                outputStream << sharedConnection->name_ << " is to the " << directionNames.at(direction)[0] << "\n";
+            }
+        }
         return outputStream;
     }
     

@@ -47,7 +47,7 @@ int main()
 	tiles[2]->connect(tiles[3], tiles[1], nullptr, nullptr);
 	tiles[3]->connect(tiles[4], tiles[2], nullptr, nullptr);
 
-	TileMap map1 = { "Diddy's Mansion"/*, tiles[1] */};
+	TileMap map1 = { "Diddy's Mansion", tiles[1] };
 
 	for (auto&& tile : tiles) {
 		map1.addTile(tile);
