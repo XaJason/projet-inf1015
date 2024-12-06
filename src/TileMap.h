@@ -21,7 +21,7 @@ namespace gameWorld {
 		void move(const Direction& direction);
 	//private:
 		std::string name_;
-		std::unordered_set < std::shared_ptr<Tile>, TileHash, TileEqual> tiles_;
+		std::vector < std::shared_ptr<Tile>> tiles_;
 		std::weak_ptr<Tile> currentTile_;
 	};
 }

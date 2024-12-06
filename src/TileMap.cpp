@@ -12,7 +12,7 @@ using namespace gameWorld;
 // Default constructor
 void TileMap::addTile(const std::shared_ptr<Tile>& tile) {
 	if (tile) {
-		tiles_.insert(tile);
+		tiles_.push_back(tile);
 		if (isCurrentNull()) { // Checks if the currentTile is empty
 			currentTile_ = tile;
 		}
