@@ -147,14 +147,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileMap.h" />

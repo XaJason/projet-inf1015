@@ -4,7 +4,7 @@
 #include <array>
 #include "Direction.h"
 
-namespace gameWorld {
+namespace game_universe {
 	class Tile {
 	public:
 		Tile(std::string name = "", std::string description = "") : name_(name), description_(description) {}
@@ -14,10 +14,11 @@ namespace gameWorld {
 
 		std::string getName() const { return name_; }
 		std::string getDescription() const { return description_; }
-		std::array<std::weak_ptr<Tile>, 4> getNeighbors() const { return neighbors_; }
+		std::array<std::weak_ptr<Tile>, 4> getNeighbors() const { return connections_; }
+		std::weak_ptr<Tile> getConnection(Direction direction) const { return connections_[direction]; }
 
 	private:
 		std::string name_, description_;
-		std::array<std::weak_ptr<Tile>, 4> neighbors_;
+		std::array<std::weak_ptr<Tile>, 4> connections_;
 	};
 }

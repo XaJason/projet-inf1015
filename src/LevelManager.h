@@ -4,7 +4,7 @@
 #include <map>
 #include <unordered_set>
 
-using namespace gameWorld;
+using namespace game_universe;
 
 class LevelManager {
 public:

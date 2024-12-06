@@ -16,12 +16,16 @@
 #include <boost/regex.hpp> // Librairie compilée.
 
 #include "TileMap.h"
+#include "Player.h"
+#include "Game.h"
+
 
 
 
 using namespace std;
 using namespace std::literals;
-using namespace gameWorld;
+using namespace game_universe;
+using namespace game_engine;
 
 
 int main()
@@ -43,24 +47,22 @@ int main()
 	tiles[2]->connect(tiles[3], tiles[1], nullptr, nullptr);
 	tiles[3]->connect(tiles[4], tiles[2], nullptr, nullptr);
 
-
-	TileMap map1 = { "Diddy's Mansion", tiles[1]};
+	TileMap map1 = { "Diddy's Mansion"/*, tiles[1] */};
 
 	for (auto&& tile : tiles) {
 		map1.addTile(tile);
 	}
 
-	for (auto&& tile : map1.tiles_) {
-		std::cout << tile->getName() << endl;
-	}
+	Player player1{};
+	Game game1 = { map1, player1 };
 
-	cout << "============================================================================\n";
-	map1.move(direction_north);
-	cout << map1.currentTile_.lock()->getName() <<endl;
-	map1.move(direction_north);
-	cout << map1.currentTile_.lock()->getName() << endl;
-	map1.move(direction_north);
-	cout << map1.currentTile_.lock()->getName() << endl;
+	//for (auto&& tile : map1.getTiles()) {
+	//	std::cout << tile->getName() << endl;
+	//}
 
+	cout << player1.getPosition().lock();
+	cout << game1.player_.getPosition().lock()->getName();
+
+	//cout << "============================================================================\n";
 }
 

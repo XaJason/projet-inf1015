@@ -9,19 +9,21 @@
 #include <functional>
 #include <unordered_set>
 
-namespace gameWorld {
+namespace game_universe {
 	class TileMap {
 	public:
 		TileMap(std::string name = "", const std::shared_ptr<Tile>& tile = nullptr) : name_(name) { addTile(tile); };
 		
-		bool isCurrentNull() const { return currentTile_.lock() == nullptr; }
+
 		void addTile(const std::shared_ptr<Tile>& tile);
-		void connectTiles(const std::shared_ptr<Tile>& tile1, const std::shared_ptr<Tile>& tile2, const Direction& direction);
-		
-		void move(const Direction& direction);
-	//private:
+
+		const std::vector<std::shared_ptr<Tile>>& getTiles() const { return tiles_; }
+		const std::weak_ptr<Tile>& getStartingTile() const { return startingTile_; }
+		bool isStartingTileNull() const { return startingTile_.lock() == nullptr; }
+
+	private:
 		std::string name_;
 		std::vector < std::shared_ptr<Tile>> tiles_;
-		std::weak_ptr<Tile> currentTile_;
+		std::weak_ptr<Tile> startingTile_;
 	};
 }
