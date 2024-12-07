@@ -16,13 +16,13 @@ namespace game_world {
 		Tile(std::string name = "", std::string description = "") : name_(name), description_(description) {}
 
 		void connect(const std::shared_ptr<Tile>& other, Direction direction);
-		void connect(const std::shared_ptr<Tile>& northTile, const std::shared_ptr<Tile>& southTile, const std::shared_ptr<Tile>& westTile, const std::shared_ptr<Tile>& eastTile );
+		void connect(const std::shared_ptr<Tile>& northTile, const std::shared_ptr<Tile>& southTile, const std::shared_ptr<Tile>& westTile, const std::shared_ptr<Tile>& eastTile);
 		void addItem(const Item& item);
 
 		std::string getName() const { return name_; }
 		std::string getDescription() const { return description_; }
 		auto getConnections() const { return connections_; }
-		std::weak_ptr<Tile> getConnection(Direction direction) const { 
+		std::weak_ptr<Tile> getConnection(Direction direction) const {
 			auto it = connections_.find(direction);
 			if (it != connections_.end()) {
 				return it->second;

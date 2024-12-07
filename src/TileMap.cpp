@@ -1,8 +1,8 @@
-#include "TileMap.h"
+#include "Exceptions.h"
 #include "memory"
+#include "TileMap.h"
 #include <cassert>
 #include <cmath>
-#include "Exceptions.h"
 #include <iostream>
 
 using namespace std;

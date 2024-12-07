@@ -1,13 +1,12 @@
 #pragma once
-#include <memory>
 #include "Tile.h"
+#include <memory>
 #include <ostream>
 
 namespace game_world {
 	class Player {
 	public:
 		Player() = default;
-
 
 		void move(const game_helper::Direction& direction);
 		void addItem(std::shared_ptr<Item> item) { items_[item->getName()] = std::move(item); }

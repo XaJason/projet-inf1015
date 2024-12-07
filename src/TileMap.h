@@ -13,7 +13,7 @@ namespace game_world {
 	class TileMap {
 	public:
 		TileMap(std::string name = "") : name_(name) {}
-		
+
 
 		void addTile(const Tile& tile);
 
