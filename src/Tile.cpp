@@ -1,10 +1,12 @@
 #include "Tile.h"
 #include <boost/functional/hash.hpp>
 #include <unordered_map>
+#include "Constants.h"
 
 using namespace std;
+using namespace constants;
 
-namespace game_universe {
+namespace game_world {
 
     // PUBLIC
     // Constructors
@@ -19,22 +21,21 @@ namespace game_universe {
         connect(eastTile, Direction::east);
     }
 
+    void Tile::addItem(const Item& item) {
+		items_[item.getName()] = make_shared<Item>(item);
+    }
+
     std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
     {
-        static const std::unordered_map<Direction, std::vector<std::string>> directionNames = {
-  {Direction::north, {"North (N)", "n"}},
-  {Direction::south, {"South (S)", "s"}},
-  {Direction::west, {"West (W)", "w"}},
-  {Direction::east, {"East (E)", "e"}}
-        };
+
 
         outputStream
-            << "-- " << tile.name_ << " --\n"
-            << tile.description_ << "\n";
+            << "\t-- " << tile.name_ << " --\n"
+            << "\t" << tile.description_ << "\n\n";
 
         for (const auto& [direction, connection] : tile.connections_) {
             if (const auto& sharedConnection = connection.lock()) {
-                outputStream << sharedConnection->name_ << " is to the " << directionNames.at(direction)[0] << "\n";
+                outputStream << "\t" << sharedConnection->name_ << " is to the " << ::directionNames.at(direction)[0] << "\n";
             }
         }
         return outputStream;

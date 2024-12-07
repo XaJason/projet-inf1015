@@ -9,22 +9,23 @@
 #include <functional>
 #include <unordered_set>
 
-namespace game_universe {
+namespace game_world {
 	class TileMap {
 	public:
-		TileMap(std::string name = "", const std::shared_ptr<Tile>& tile = nullptr) : name_(name) { addTile(tile); };
+		TileMap(std::string name = "") : name_(name) {}
 		
 
-		void addTile(const std::shared_ptr<Tile>& tile);
+		void addTile(const Tile& tile);
 
 		const std::string& getName() const { return name_; }
-		const std::vector<std::shared_ptr<Tile>>& getTiles() const { return tiles_; }
+		const std::unordered_map <std::string, std::shared_ptr<Tile>>& getTiles() const { return tiles_; }
 		const std::weak_ptr<Tile>& getStartingTile() const { return startingTile_; }
-		bool isStartingTileNull() const { return startingTile_.lock() == nullptr; }
+
+		std::shared_ptr<Tile> operator[](const std::string& name) const { return tiles_.at(name); }
 
 	private:
 		std::string name_;
-		std::vector < std::shared_ptr<Tile>> tiles_;
+		std::unordered_map <std::string, std::shared_ptr<Tile>> tiles_;
 		std::weak_ptr<Tile> startingTile_;
 	};
 }

@@ -24,46 +24,42 @@
 
 using namespace std;
 using namespace std::literals;
-using namespace game_universe;
-using namespace game_engine;
+using namespace game_world;
+using namespace game_logic;
 
+	int main()
+	{
+		vector<Tile> tiles = {
+		Tile("Lobby", "Grand entrance hall with menacing Native totems."),
+		Tile("Colorado Lounge", "Abandoned bar. Mirrors reflect impossible scenes."),
+		Tile("Kitchen", "Industrial silence. Gleaming knife racks."),
+		Tile("Storage Room", "Yellowed newspapers. Dark hotel secrets."),
+		Tile("Ballroom", "Phantom dancers from 1921 still celebrate here."),
+		Tile("Room 237", "Rotting bathroom. Something moves in the tub."),
+		Tile("Boiler Room", "Hissing pipes. Rising pressure. Metal groans."),
+		Tile("Gold Hall", "Endless hexagonal carpet. Echoes of children's laughter."),
+		Tile("Torrance Apartment", "Family quarters. Danny's tricycle marks the floor.")
+		};
 
-int main()
-{
-	vector<std::shared_ptr<Tile>> tiles = {
-	std::make_shared<Tile>(Tile("Grand Entrance", "1")),
-	std::make_shared<Tile>(Tile("Game Room", "2")),
-	std::make_shared<Tile>(Tile("Dance Floor", "3")),
-	std::make_shared<Tile>(Tile("Bar & Lounge", "4")),
-	std::make_shared<Tile>(Tile("Private Theater", "5")),
-	std::make_shared<Tile>(Tile("Music Studio", "6")),
-	std::make_shared<Tile>(Tile("Bedroom", "7")),
-	std::make_shared<Tile>(Tile("Rooftop Deck", "8")),
-	std::make_shared<Tile>(Tile("Private Pool", "9")),
-	std::make_shared<Tile>(Tile("Bathroom", "10"))
-	};
+		TileMap map1 = { "The Overlook Hotel" };
+		for (auto&& tile : tiles) {
+			map1.addTile(tile);
+		}
 
-	tiles[1]->connect(tiles[2], tiles[9], nullptr, nullptr);
-	tiles[2]->connect(tiles[3], tiles[1], nullptr, nullptr);
-	tiles[3]->connect(tiles[4], tiles[2], nullptr, nullptr);
+		map1["Lobby"]->connect(map1["Colorado Lounge"], nullptr, map1["Boiler Room"], map1["Storage Room"]);
+		map1["Colorado Lounge"]->connect(map1["Kitchen"], map1["Lobby"], map1["Boiler Room"], map1["Ballroom"]);
+		map1["Kitchen"]->connect(nullptr, map1["Colorado Lounge"], map1["Boiler Room"], map1["Ballroom"]);
+		map1["Storage Room"]->connect(map1["Gold Hall"], nullptr, map1["Lobby"], nullptr);
+		map1["Ballroom"]->connect(nullptr, map1["Gold Hall"], map1["Colorado Lounge"], map1["Room 237"]);
+		map1["Room 237"]->connect(nullptr, map1["Torrance Apartment"], map1["Boiler Room"], nullptr);
+		map1["Boiler Room"]->connect(map1["Kitchen"], map1["Lobby"], nullptr, map1["Colorado Lounge"]);
+		map1["Gold Hall"]->connect(map1["Ballroom"], map1["Storage Room"], nullptr, map1["Torrance Apartment"]);
+		map1["Torrance Apartment"]->connect(map1["Room 237"], map1["Storage Room"], map1["Gold Hall"], nullptr);
 
-	TileMap map1 = { "Diddy's Mansion", tiles[1] };
+		Game game1 = { map1, Player() };
 
-	for (auto&& tile : tiles) {
-		map1.addTile(tile);
+		game1.startGame();
+		return 0;
 	}
 
-	Player player1{};
-	Game game1 = { map1, player1 };
-
-	for (auto&& tile : map1.getTiles()) {
-		std::cout << tile->getName() << endl;
-	}
-
-	cout << player1.getPosition().lock();
-
-	game1.startGame();
-
-	//cout << "============================================================================\n";
-}
 

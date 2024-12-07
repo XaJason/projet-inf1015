@@ -3,13 +3,14 @@
 #include "Tile.h"
 #include <ostream>
 
-namespace game_universe {
+namespace game_world {
 	class Player {
 	public:
 		Player() = default;
 
 
-		void move(const Direction& direction);
+		void move(const game_helper::Direction& direction);
+		void addItem(std::shared_ptr<Item> item) { items_[item->getName()] = std::move(item); }
 
 		bool isPositionNull() const { return position_.lock() == nullptr; }
 		std::weak_ptr<Tile> getPosition() const { return position_; }
@@ -19,5 +20,6 @@ namespace game_universe {
 
 	private:
 		std::weak_ptr<Tile> position_;
+		std::unordered_map<std::string, shared_ptr<Item>> items_;
 	};
 }

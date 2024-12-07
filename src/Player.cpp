@@ -1,7 +1,9 @@
 #include "Player.h"
 #include "Exceptions.h"
 
-namespace game_universe {
+using namespace exceptions;
+
+namespace game_world {
 
 	void Player::move(const Direction& direction) {
 		if (auto origin = position_.lock()) { // Verification initialization
@@ -19,4 +21,6 @@ namespace game_universe {
 	{
 		return outputStream << *(player.position_.lock());
 	}
+
+
 }

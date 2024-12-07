@@ -5,16 +5,18 @@
 #include "Exceptions.h"
 #include <iostream>
 
-using namespace game_universe;
+using namespace std;
 
-// PUBLIC
-// Constructors
-// Default constructor
-void TileMap::addTile(const std::shared_ptr<Tile>& tile) {
-	if (tile) {
-		tiles_.push_back(tile);
-		if (isStartingTileNull()) { // Checks if the currentTile is empty
-			startingTile_ = tile;
+namespace game_world {
+
+	// PUBLIC
+	// Constructors
+	// Default constructor
+	void TileMap::addTile(const Tile& tile) {
+		auto owningCopy = make_shared<Tile>(tile);
+		if (tiles_.empty()) { // Checks if the currentTile is empty
+			startingTile_ = owningCopy;
 		}
+		tiles_[tile.getName()] = owningCopy;
 	}
 }
