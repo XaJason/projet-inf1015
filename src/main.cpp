@@ -1,7 +1,10 @@
-///
-/// Ce projet utilise quelques librairies disponibles sur Vcpkg et permet entre autre d'en tester le bon fonctionnement.
-///
-
+/**
+* Jeu permettant de deplacer un joueur dans une carte
+* \file   main.cpp
+* \author Bouisri et Xa
+* \date   7 decembre 2024
+* Créé le 6 decembre 2024
+*/
 
 #include <cstddef>
 #include <cstdint>
@@ -27,6 +30,9 @@ using namespace std::literals;
 using namespace game_world;
 using namespace game_logic;
 
+/**
+ * @brief 
+ */
 static TileMap buildLevel() {
 	vector<Tile> tiles = {
 	Tile("Lobby", "Grand entrance hall with menacing Native totems."),
