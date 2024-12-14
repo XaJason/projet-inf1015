@@ -27,11 +27,9 @@
 
 using namespace std;
 using namespace std::literals;
-using namespace game_world;
-using namespace game_logic;
 
 /**
- * @brief 
+ * @brief
  */
 static TileMap buildLevel() {
 	vector<Tile> tiles = {
