@@ -8,62 +8,65 @@
 
 #pragma once
 
-#include <vector>
-#include <memory>
-#include "Tile.h"
-#include <ostream>
 #include "Direction.h"
-#include <map>
+#include "Tile.h"
 #include <functional>
+#include <map>
+#include <memory>
+#include <ostream>
 #include <unordered_set>
+#include <vector>
 
-namespace game_world {
+/**
+ * @class TileMap
+ * @brief Gestionnaire de la carte du jeu
+ *
+ * La classe TileMap permet de gerer les cases qui composent le jeu.
+ * Chaque objet Tile est associe a un nom dans un unordered_map.
+ */
+class TileMap {
+public:
+
 	/**
-	 * @class TileMap 
-	 * @brief Gestionnaire de la carte du jeu
-	 *
-	 * La classe TileMap permet de gerer les cases qui composent le jeu.
-	 * Chaque objet Tile est associe a un nom dans un unordered_map.
+	 * @brief Constructeur pour une carte du jeu
+	 * @param name Le nom de la carte du jeu, vide par defaut
 	 */
-	class TileMap {
-	public:
+	TileMap(const std::string& name = "") : name_(name), tiles_(std::make_unique<std::unordered_map < std::string, std::unique_ptr<Tile>>>()), startingTile_() {
+	}
 
-		/**
-		 * @brief Constructeur pour une carte du jeu
-		 * @param name Le nom de la carte du jeu, vide par defaut
-		 */
-		TileMap(std::string name = "") : name_(name) {}
-		/**
-		 * @brief Ajoute une case à la carte
-		 * @param tile Reference de la case a ajouter
-		 */
-		void addTile(const Tile& tile);
-		/**
-		 * @brief Getter pour le nom de la carte
-		 * @return Reference vers le nom de la carte
-		 */
-		const std::string& getName() const { return name_; }
-		/**
-		 * @brief Getter pour le map des cases du jeu
-		 * @return Le map 
-		 */
-		const std::unordered_map <std::string, std::shared_ptr<Tile>>& getTiles() const { return tiles_; }
-		/**
-		 * @brief Getter pour la premiere case du jeu
-		 * @return La premiere case du jeu
-		 */
-		const std::weak_ptr<Tile>& getStartingTile() const { return startingTile_; }
+	TileMap(const TileMap& other);
 
-		/**
-		 * @brief Acces a un element Tile selon le nom
-		 * @param name Le nom associe au Tile
-		 * @return Pointeur vers le Tile associe au nom donne
-		 */
-		std::shared_ptr<Tile> operator[](const std::string& name) const { return tiles_.at(name); }
+	//TileMap(const TileMap&) :
+	/**
+	* @brief Ajoute une case à la carte
+	* @param tile Reference de la case a ajouter
+	*/
+	void addTile(const Tile& tile);
+	/**
+	 * @brief Getter pour le nom de la carte
+	 * @return Reference vers le nom de la carte
+	 */
+	const std::string& getName() const { return name_; }
+	/**
+	 * @brief Getter pour le map des cases du jeu
+	 * @return Le map
+	 */
+	const std::unordered_map <std::string, std::unique_ptr<Tile>>* getTiles() const { return tiles_.get(); }
+	/**
+	 * @brief Getter pour la premiere case du jeu
+	 * @return La premiere case du jeu
+	 */
+	const Tile* getStartingTile() const { return startingTile_; }
 
-	private:
-		std::string name_; ///< Le nom associe au TileMap
-		std::unordered_map <std::string, std::shared_ptr<Tile>> tiles_; ///< Map des cases de la carte
-		std::weak_ptr<Tile> startingTile_; ///< La premiere case de la carte
-	};
-}
+	/**
+	 * @brief Acces a un element Tile selon le nom
+	 * @param name Le nom associe au Tile
+	 * @return Pointeur vers le Tile associe au nom donne
+	 */
+	Tile* operator[](const std::string& name) const;
+
+private:
+	std::string name_; ///< Le nom associe au TileMap
+	std::unique_ptr<std::unordered_map <std::string, std::unique_ptr<Tile>>> tiles_; ///< Map des cases de la carte
+	Tile* startingTile_; ///< La premiere case de la carte
+};

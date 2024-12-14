@@ -1,26 +1,20 @@
 #include "Exceptions.h"
 #include "Player.h"
 
-using namespace exceptions;
-
-namespace game_world {
-
-	void Player::move(const Direction& direction) {
-		if (auto origin = position_.lock()) { // Verification initialization
-			if (auto destination = origin->getConnections()[direction].lock()) {
-				position_ = destination;
-			}
-			else {
-				throw InvalidMovement("Error : No accessible room in this direction.");
-			}
+void Player::move(const Direction& direction) {
+	if (position_ != nullptr) { // Verification initialization
+		const Tile* destination = position_->getConnection(direction);
+		if (destination != nullptr) {
+			position_ = destination;
 		}
-
+		else {
+			throw InvalidMovement("Error : No accessible room in this direction.");
+		}
 	}
 
-	std::ostream& operator<<(std::ostream& outputStream, const Player& player)
-	{
-		return outputStream << *(player.position_.lock());
-	}
+}
 
-
+std::ostream& operator<<(std::ostream& outputStream, const Player& player)
+{
+	return outputStream << *player.position_;
 }
