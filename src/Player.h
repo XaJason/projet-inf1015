@@ -6,11 +6,12 @@
 * Créé le 6 decembre 2024
 */
 #pragma once
-#include "Item.h"
 #include "Tile.h"
 #include <memory>
 #include <ostream>
 #include <unordered_map>
+
+class Item;
 
 /**
  * @class Player
@@ -34,7 +35,7 @@ public:
 	 * @brief Ajoute un objet a l'inventaire du Player
 	 * @param item L'objet a ajouter
 	 */
-	void addItem(std::shared_ptr<Item> item) { items_[item->getName()] = std::move(item); }
+	void addItem(std::shared_ptr<Item> item);
 
 	/**
 	 * @brief Verifie si la position du joueur est invalide

@@ -7,12 +7,13 @@
 */
 #pragma once
 #include "Direction.h"
-#include "Item.h"
 #include <array>
 #include <boost/functional/hash.hpp>
 #include <memory>
 #include <string>
 #include <unordered_map>
+
+class Item;
 
 using namespace std;
 
