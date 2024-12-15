@@ -6,20 +6,21 @@
 * Créé le 6 decembre 2024
 */
 #pragma once
-#include "ItemTaker.h"
+#include "Taking.h"
 #include "Tile.h"
 #include <memory>
 #include <ostream>
 #include <unordered_map>
 
 class Item;
+using namespace taking;
 
 /**
  * @class Player
  * @brief Joueur dans le jeu
  * La classe Player permet de controler la position dans le z et les objets collectes par le jeu.
  */
-class Player : public ItemTaker {
+class Player : public Taker {
 public:
 
 	/**
@@ -62,7 +63,7 @@ public:
 	 */
 	friend std::ostream& operator<<(std::ostream& outputStream, const Player& player);
 
-	bool take(Item* item) override;
+	bool take(Takeable& t) override;
 
 private:
 	const Tile* position_; ///< Position actuelle du joueur

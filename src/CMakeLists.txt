@@ -18,13 +18,13 @@ set(ALL_FILES
 		"Game.h"
 		"Item.cpp"
 		"Item.h"
-		"ItemTaker.h"
 		"Player.cpp"
 		"Player.h"
 		"Tile.cpp"
 		"Tile.h"
 		"TileMap.cpp"
 		"TileMap.h"
+		"Taking.h"
 )
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 

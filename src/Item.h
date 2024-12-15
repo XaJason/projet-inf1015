@@ -1,17 +1,20 @@
 #pragma once
 #include "Lookable.h"
+#include "Taking.h"
 #include "TileMap.h"
 #include <string>
+
+using namespace taking;
+
 class Player;
 
-// TODO: Interface lookable (useable and takeable ?)
 	/**
 	 * @class Item
 	 * @brief Represente un objet dans le monde du jeu
 	 *
 	 * La classe Item represente un objet pouvant etre collecte par le Player.
 	 */
-class Item : public Lookable {
+class Item : public Lookable, public Takeable {
 public:
 	/**
 	 * @brief Constructeur d'un Item
