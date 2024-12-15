@@ -27,16 +27,6 @@
 class TileMap {
 public:
 
-/**
- * @class TileMap
- * @brief Gestionnaire de la carte du jeu
- *
- * La classe TileMap permet de gerer les cases qui composent le jeu.
- * Chaque objet Tile est associe a un nom dans un unordered_map.
- */
-class TileMap {
-public:
-
 	/**
 	 * @brief Constructeur pour une carte du jeu
 	 * @param name Le nom de la carte du jeu, vide par defaut

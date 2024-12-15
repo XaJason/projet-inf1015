@@ -52,6 +52,10 @@ public:
 	 */
 	virtual bool use(const Player& player) = 0;
 
+	 bool use() override;
+
+	 bool use(Taker& t) override;
+
 	/**
 	 * @brief Surcharge de l'operateur d'affichage
 	 * @param outputStream flux de sortie

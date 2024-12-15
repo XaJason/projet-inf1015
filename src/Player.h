@@ -54,6 +54,10 @@ public:
 	 */
 	void setPosition(const Tile* position) { position_ = position; }
 
+	bool take(Takeable& t) override;
+
+	bool use(Useable& u) override;
+
 	/**
 	 * @brief Surcharge de l'operateur d'affichage du joueur
 	 * @param outputStream Flux de sortie

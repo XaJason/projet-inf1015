@@ -55,7 +55,7 @@ public:
 	 * @brief Ajoute un objet a la case
 	 * @param item L'objet a ajouter
 	 */
-	void addItem(const Item& item);
+	void addItem(const shared_ptr<Item>& item);
 	/**
 	 * @brief Getter pour le nom de la case
 	 * @return Le nom associe a la case

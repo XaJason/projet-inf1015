@@ -18,6 +18,16 @@ void Player::move(const Direction& direction) {
 
 void Player::addItem(std::shared_ptr<Item> item) { items_[item->getName()] = std::move(item); }
 
+//TODO: Implement the take method
+bool Player::take(Takeable& t) {
+	return true;
+}
+
+//TODO: Implement the use method
+bool Player::use(Useable& u) {
+	return true;
+}
+
 std::ostream& operator<<(std::ostream& outputStream, const Player& player)
 {
 	return outputStream << *player.position_;
