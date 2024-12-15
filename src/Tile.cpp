@@ -38,3 +38,4 @@ std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
 	}
 	return outputStream;
 }
+
