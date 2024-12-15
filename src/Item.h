@@ -1,4 +1,5 @@
 #pragma once
+#include "Lookable.h"
 #include "TileMap.h"
 #include <string>
 class Player;
@@ -10,14 +11,14 @@ class Player;
 	 *
 	 * La classe Item represente un objet pouvant etre collecte par le Player.
 	 */
-class Item {
+class Item : public Lookable {
 public:
 	/**
 	 * @brief Constructeur d'un Item
 	 * @param name Le nom de l'item
 	 * @param description La description de l'item
 	 */
-	Item(std::string name = "", std::string description = "") : name_(name), description_(description) {}
+	Item(std::string name = "", std::string description = "") : name_(name), Lookable(description) {}
 	/**
 	 * @brief Getter pour le nom associe a l'item
 	 * @return Le nom associe a l'item
@@ -28,12 +29,6 @@ public:
 	 * @return La description de l'item
 	 */
 	std::string getDescription() const { return description_; }
-
-	/**
-	 * @brief Methode permettant d'afficher la description d'un item
-	 * @param os Le flux de sortie
-	 */
-	std::ostream& look(std::ostream& os);
 
 	/**
 	 * @brief Methode permettant d'ajouter un item a l'inventaire d'un joueur
