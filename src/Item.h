@@ -1,23 +1,26 @@
 #pragma once
-#include "Player.h"
+#include "Actions.h"
 #include "TileMap.h"
 #include <string>
 
-// TODO: Interface lookable (useable and takeable ?)
+using namespace actions;
+
+class Player;
+
 	/**
 	 * @class Item
 	 * @brief Represente un objet dans le monde du jeu
 	 *
 	 * La classe Item represente un objet pouvant etre collecte par le Player.
 	 */
-class Item {
+class Item : public Lookable, public Takeable, public Useable {
 public:
 	/**
 	 * @brief Constructeur d'un Item
 	 * @param name Le nom de l'item
 	 * @param description La description de l'item
 	 */
-	Item(std::string name = "", std::string description = "") : name_(name), description_(description) {}
+	Item(std::string name = "", std::string description = "") : name_(name), Lookable(description) {}
 	/**
 	 * @brief Getter pour le nom associe a l'item
 	 * @return Le nom associe a l'item

@@ -1,5 +1,7 @@
 #include "Exceptions.h"
 #include "Player.h"
+#include "Item.h"
+#include "Actions.h"
 
 void Player::move(const Direction& direction) {
 	if (position_ != nullptr) { // Verification initialization
@@ -14,7 +16,10 @@ void Player::move(const Direction& direction) {
 
 }
 
+void Player::addItem(std::shared_ptr<Item> item) { items_[item->getName()] = std::move(item); }
+
 std::ostream& operator<<(std::ostream& outputStream, const Player& player)
 {
 	return outputStream << *player.position_;
 }
+

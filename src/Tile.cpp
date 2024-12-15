@@ -2,6 +2,7 @@
 #include "Tile.h"
 #include <boost/functional/hash.hpp>
 #include <unordered_map>
+#include "Item.h"
 
 using namespace std;
 
@@ -19,7 +20,8 @@ void Tile::connect(Tile* northTile, Tile* southTile, Tile* westTile, Tile* eastT
 }
 
 void Tile::addItem(const Item& item) {
-	items_[item.getName()] = make_shared<Item>(item);
+	//TODO: use 
+	//items_[item.getName()] = make_shared<TrashItem>();
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
@@ -37,3 +39,4 @@ std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
 	}
 	return outputStream;
 }
+

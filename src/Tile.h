@@ -7,14 +7,17 @@
 */
 #pragma once
 #include "Direction.h"
-#include "Item.h"
+#include "Actions.h"
 #include <array>
 #include <boost/functional/hash.hpp>
 #include <memory>
 #include <string>
 #include <unordered_map>
 
+class Item;
+
 using namespace std;
+using namespace actions;
 
 /**
   * @class Tile
@@ -24,14 +27,16 @@ using namespace std;
   * Elle peut etre connectee a d'autres cases dans les directions cardinales
   * et contenir des objets du jeu.
   */
-class Tile {
+// TODO : derive de Taker (pour ajout d'items)
+class Tile : public Lookable {
 public:
 	/**
 	 * @brief Constructeur de la classe Tile
 	 * @param name Le nom associe a la case
 	 * @param description La description de la case
 	 */
-	Tile(std::string name = "", std::string description = "") : name_(name), description_(description) {}
+	Tile(std::string name = "", std::string description = "") : Lookable(description), name_(name) {}
+	~Tile() = default;
 	/**
 	 * @brief Connecte une case a une autre dans une direction donne.
 	 * @param other Pointeur vers la case a connecter

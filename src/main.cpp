@@ -66,7 +66,8 @@ int main()
 {
 
 	TileMap map = buildLevel();
-	Game game = { map, Player() };
+	Player player = Player();
+	Game game = { map, player };
 
 	game.startGame();
 	return 0;

@@ -6,24 +6,26 @@
 * Créé le 6 decembre 2024
 */
 #pragma once
-#include "Item.h"
+#include "Actions.h"
 #include "Tile.h"
 #include <memory>
 #include <ostream>
 #include <unordered_map>
+
+using namespace actions;
+class Item;
 
 /**
  * @class Player
  * @brief Joueur dans le jeu
  * La classe Player permet de controler la position dans le z et les objets collectes par le jeu.
  */
-class Player {
+class Player : public Taker, public User {
 public:
 
 	/**
 	 * @brief Constructeur par defaut d'un Player
 	 */
-	Player() = default;
 
 	/**
 	 * @brief Deplace le Player dans une direction donnee
@@ -34,7 +36,7 @@ public:
 	 * @brief Ajoute un objet a l'inventaire du Player
 	 * @param item L'objet a ajouter
 	 */
-	void addItem(std::shared_ptr<Item> item) { items_[item->getName()] = std::move(item); }
+	void addItem(std::shared_ptr<Item> item);
 
 	/**
 	 * @brief Verifie si la position du joueur est invalide

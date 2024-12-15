@@ -8,6 +8,7 @@ project(Exercices)
 # On met les fichiers sources (incluant les entêtes)
 set(ALL_FILES
     "main.cpp"
+		"Actions.h"
 		"Constants.cpp"
 		"Constants.h"
 		"Direction.cpp"
@@ -23,8 +24,6 @@ set(ALL_FILES
 		"Tile.h"
 		"TileMap.cpp"
 		"TileMap.h"
-		
-
 )
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
