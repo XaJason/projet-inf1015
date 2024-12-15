@@ -1,7 +1,7 @@
 #include "Exceptions.h"
 #include "Player.h"
 #include "Item.h"
-#include "Taking.h"
+#include "Actions.h"
 
 void Player::move(const Direction& direction) {
 	if (position_ != nullptr) { // Verification initialization
@@ -21,10 +21,5 @@ void Player::addItem(std::shared_ptr<Item> item) { items_[item->getName()] = std
 std::ostream& operator<<(std::ostream& outputStream, const Player& player)
 {
 	return outputStream << *player.position_;
-}
-
-bool Player::take(Takeable& t) {
-	// TODO: implementation
-	return true;
 }
 

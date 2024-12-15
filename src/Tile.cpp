@@ -20,7 +20,8 @@ void Tile::connect(Tile* northTile, Tile* southTile, Tile* westTile, Tile* eastT
 }
 
 void Tile::addItem(const Item& item) {
-	items_[item.getName()] = make_shared<TrashItem>();
+	//TODO: use 
+	//items_[item.getName()] = make_shared<TrashItem>();
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)

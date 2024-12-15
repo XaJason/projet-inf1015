@@ -7,7 +7,7 @@
 */
 #pragma once
 #include "Direction.h"
-#include "Lookable.h"
+#include "Actions.h"
 #include <array>
 #include <boost/functional/hash.hpp>
 #include <memory>
@@ -17,6 +17,7 @@
 class Item;
 
 using namespace std;
+using namespace actions;
 
 /**
   * @class Tile
@@ -26,6 +27,7 @@ using namespace std;
   * Elle peut etre connectee a d'autres cases dans les directions cardinales
   * et contenir des objets du jeu.
   */
+// TODO : derive de Taker (pour ajout d'items)
 class Tile : public Lookable {
 public:
 	/**
