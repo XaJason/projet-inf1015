@@ -31,36 +31,36 @@ using namespace std::literals;
 /**
  * @brief
  */
-static TileMap buildLevel() {
-	vector<Tile> tiles = {
-	Tile("Lobby", "Grand entrance hall with menacing Native totems."),
-	Tile("Colorado Lounge", "Abandoned bar. Mirrors reflect impossible scenes."),
-	Tile("Kitchen", "Industrial silence. Gleaming knife racks."),
-	Tile("Storage Room", "Yellowed newspapers. Dark hotel secrets."),
-	Tile("Ballroom", "Phantom dancers from 1921 still celebrate here."),
-	Tile("Room 237", "Rotting bathroom. Something moves in the tub."),
-	Tile("Boiler Room", "Hissing pipes. Rising pressure. Metal groans."),
-	Tile("Gold Hall", "Endless hexagonal carpet. Echoes of children's laughter."),
-	Tile("Torrance Apartment", "Family quarters. Danny's tricycle marks the floor.")
-	};
-
-	TileMap map = { "The Overlook Hotel" };
-	for (auto&& tile : tiles) {
-		map.addTile(tile);
-	}
-
-	map["Lobby"]->connect(map["Colorado Lounge"], nullptr, map["Boiler Room"], map["Storage Room"]);
-	map["Colorado Lounge"]->connect(map["Kitchen"], map["Lobby"], map["Boiler Room"], map["Ballroom"]);
-	map["Kitchen"]->connect(nullptr, map["Colorado Lounge"], map["Boiler Room"], map["Ballroom"]);
-	map["Storage Room"]->connect(map["Gold Hall"], nullptr, map["Lobby"], nullptr);
-	map["Ballroom"]->connect(nullptr, map["Gold Hall"], map["Colorado Lounge"], map["Room 237"]);
-	map["Room 237"]->connect(nullptr, map["Torrance Apartment"], map["Boiler Room"], nullptr);
-	map["Boiler Room"]->connect(map["Kitchen"], map["Lobby"], nullptr, map["Colorado Lounge"]);
-	map["Gold Hall"]->connect(map["Ballroom"], map["Storage Room"], nullptr, map["Torrance Apartment"]);
-	map["Torrance Apartment"]->connect(map["Room 237"], map["Storage Room"], map["Gold Hall"], nullptr);
-
-	return map;
-}
+ static TileMap buildLevel() {
+ 	vector<Tile> tiles = {
+ 	Tile("Lobby", "Grand entrance hall with menacing Native totems."),
+ 	Tile("Colorado Lounge", "Abandoned bar. Mirrors reflect impossible scenes."),
+ 	Tile("Kitchen", "Industrial silence. Gleaming knife racks."),
+ 	Tile("Storage Room", "Yellowed newspapers. Dark hotel secrets."),
+ 	Tile("Ballroom", "Phantom dancers from 1921 still celebrate here."),
+ 	Tile("Room 237", "Rotting bathroom. Something moves in the tub."),
+ 	Tile("Boiler Room", "Hissing pipes. Rising pressure. Metal groans."),
+ 	Tile("Gold Hall", "Endless hexagonal carpet. Echoes of children's laughter."),
+ 	Tile("Torrance Apartment", "Family quarters. Danny's tricycle marks the floor.")
+ 	};
+ 
+ 	TileMap map = { "The Overlook Hotel" };
+ 	for (auto&& tile : tiles) {
+ 		map.addTile(tile);
+ 	}
+ 
+ 	map["Lobby"]->connect(map["Colorado Lounge"], nullptr, map["Boiler Room"], map["Storage Room"]);
+ 	map["Colorado Lounge"]->connect(map["Kitchen"], map["Lobby"], map["Boiler Room"], map["Ballroom"]);
+ 	map["Kitchen"]->connect(nullptr, map["Colorado Lounge"], map["Boiler Room"], map["Ballroom"]);
+ 	map["Storage Room"]->connect(map["Gold Hall"], nullptr, map["Lobby"], nullptr);
+ 	map["Ballroom"]->connect(nullptr, map["Gold Hall"], map["Colorado Lounge"], map["Room 237"]);
+ 	map["Room 237"]->connect(nullptr, map["Torrance Apartment"], map["Boiler Room"], nullptr);
+ 	map["Boiler Room"]->connect(map["Kitchen"], map["Lobby"], nullptr, map["Colorado Lounge"]);
+ 	map["Gold Hall"]->connect(map["Ballroom"], map["Storage Room"], nullptr, map["Torrance Apartment"]);
+ 	map["Torrance Apartment"]->connect(map["Room 237"], map["Storage Room"], map["Gold Hall"], nullptr);
+ 
+ 	return map;
+ }
 
 int main()
 {

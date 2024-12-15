@@ -13,7 +13,7 @@ using namespace boost::algorithm;
 
 Game::Game(const TileMap& map, const Player& player)
 	: map_(map), player_(player) {
-	player_.setPosition(((map_.getStartingTile()).lock()));
+	player_.setPosition(((map_.getStartingTile())));
 }
 
 void Game::startGame() {
@@ -39,9 +39,9 @@ void Game::startGame() {
 		{"left", [this](string item) { moveInDirection(Direction::west, item); }},
 		{"right", [this](string item) { moveInDirection(Direction::east, item); }},
 
-		{ "look", [this](string item) {look(item); }}/*,
+		{ "look", [this](string item) {look(item); }},
 		{ "take", [this](string item) { cout << "take" << cat; }},
-		{ "use", [this](string item) {cout << "use" << item; }}*/
+		{ "use", [this](string item) {cout << "use" << item; }}
 	};
 
 	std::cout << ">>>>> INF1015 DUNGEON CRAWLER 2024 <<<<<\n"

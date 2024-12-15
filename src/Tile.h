@@ -6,13 +6,13 @@
 * Créé le 6 decembre 2024
 */
 #pragma once
-#include <string>
-#include <memory>
-#include <array>
 #include "Direction.h"
-#include <boost/functional/hash.hpp>
-#include <unordered_map>
 #include "Item.h"
+#include <array>
+#include <boost/functional/hash.hpp>
+#include <memory>
+#include <string>
+#include <unordered_map>
 
 using namespace std;
 
@@ -37,7 +37,7 @@ public:
 	 * @param other Pointeur vers la case a connecter
 	 * @param direction La direction vers laquelle connecter la case
 	 */
-	void connect(const std::shared_ptr<Tile>& other, Direction direction);
+	void connect(Tile* other, Direction direction);
 	/**
 	 * @brief Connecte la case à quatre autres cases dans les directions cardinales.
 	 * @param northTile Pointeur vers la case au nord.
@@ -45,7 +45,7 @@ public:
 	 * @param westTile Pointeur vers la case à l'ouest.
 	 * @param eastTile Pointeur vers la case à l'est.
 	 */
-	void connect(const std::shared_ptr<Tile>& northTile, const std::shared_ptr<Tile>& southTile, const std::shared_ptr<Tile>& westTile, const std::shared_ptr<Tile>& eastTile);
+	void connect(Tile* northTile, Tile* southTile, Tile* westTile, Tile* eastTile);
 	/**
 	 * @brief Ajoute un objet a la case
 	 * @param item L'objet a ajouter
@@ -71,12 +71,12 @@ public:
 	 * @param direction La direction associee a la connection
 	 * @return Reference faible vers la case connectee a cette instance dans la direction donnee
 	 */
-	std::weak_ptr<Tile> getConnection(Direction direction) const {
+	const Tile* getConnection(Direction direction) const {
 		auto it = connections_.find(direction);
 		if (it != connections_.end()) {
 			return it->second;
 		}
-		return std::weak_ptr<Tile>();
+		return nullptr;
 	}
 	/**
 	 * @brief Surcharge de l'operateur d'affichage de la case
@@ -88,6 +88,6 @@ public:
 private:
 	std::string name_; ///< Le nom associe a la case
 	std::string description_; ///< La description de la case
-	std::unordered_map<Direction, weak_ptr<Tile>> connections_; ///< Le map des connections associees a une direction
+	std::unordered_map<Direction, Tile*> connections_; ///< Le map des connections associees a une direction
 	std::unordered_map<std::string, shared_ptr<Item>> items_; ///< Le map des objets dans la case
 };

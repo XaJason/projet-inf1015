@@ -2,8 +2,9 @@
 #include "Player.h"
 
 void Player::move(const Direction& direction) {
-	if (auto origin = position_.lock()) { // Verification initialization
-		if (auto destination = origin->getConnections()[direction].lock()) {
+	if (position_ != nullptr) { // Verification initialization
+		const Tile* destination = position_->getConnection(direction);
+		if (destination != nullptr) {
 			position_ = destination;
 		}
 		else {
@@ -15,5 +16,5 @@ void Player::move(const Direction& direction) {
 
 std::ostream& operator<<(std::ostream& outputStream, const Player& player)
 {
-	return outputStream << *(player.position_.lock());
+	return outputStream << *player.position_;
 }
