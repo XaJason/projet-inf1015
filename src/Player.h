@@ -6,6 +6,7 @@
 * Créé le 6 decembre 2024
 */
 #pragma once
+#include "ItemTaker.h"
 #include "Tile.h"
 #include <memory>
 #include <ostream>
@@ -18,7 +19,7 @@ class Item;
  * @brief Joueur dans le jeu
  * La classe Player permet de controler la position dans le z et les objets collectes par le jeu.
  */
-class Player {
+class Player : public ItemTaker {
 public:
 
 	/**
@@ -60,6 +61,8 @@ public:
 	 * @return Flux de sortie
 	 */
 	friend std::ostream& operator<<(std::ostream& outputStream, const Player& player);
+
+	bool take(Item* item) override;
 
 private:
 	const Tile* position_; ///< Position actuelle du joueur

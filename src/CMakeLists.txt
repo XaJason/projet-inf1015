@@ -18,6 +18,7 @@ set(ALL_FILES
 		"Game.h"
 		"Item.cpp"
 		"Item.h"
+		"ItemTaker.h"
 		"Player.cpp"
 		"Player.h"
 		"Tile.cpp"

@@ -21,3 +21,8 @@ std::ostream& operator<<(std::ostream& outputStream, const Player& player)
 {
 	return outputStream << *player.position_;
 }
+
+bool Player::take(const Item& item) {
+	return true;
+}
+
