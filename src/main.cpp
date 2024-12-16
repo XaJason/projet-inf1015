@@ -61,6 +61,8 @@ using namespace std::literals;
  	map["Torrance Apartment"]->connect(map["Room 237"], map["Storage Room"], map["Gold Hall"], nullptr);
 
 	map["Lobby"]->addItem(make_shared<KeyItem>());
+
+	map["Colorado Lounge"]->addItem(make_shared<AccessItem>("Ladder", "It looks old and smells ... rotten.", map["Gold Hall"]));
  
  	return map;
  }

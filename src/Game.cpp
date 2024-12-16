@@ -70,11 +70,11 @@ void Game::startGame() {
 		try {
 			movementCommands.at(actionWord)(details); // First parenthesis for first word of input (action word), second parenthesis for remainder of the input (details)
 		}
-		catch (InvalidMovement c) {
-			cout << "Well, urmmm, actually, you can't go there\n";
+		catch (const InvalidMovement& e) {
+			cout << e.what();
 		}
-		catch (out_of_range) {
-			cout << "Urmmm, what the sigma is that input?\n";
+		catch (const out_of_range&) {
+			cout << "Error: Invalid command";
 		}
 
 		cout << "\n";
@@ -116,11 +116,12 @@ void Game::take(string item)
 
 void Game::use(string item)
 {
-	if (item.empty()) {
-		cout << player_;
+	
+	if (item.empty() ) {
+		throw out_of_range("Error: Invalid item");
 	}
 	else {
-		// Look at item
+		
 	}
 }
 

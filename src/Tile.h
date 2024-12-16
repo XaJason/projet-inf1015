@@ -35,8 +35,11 @@ public:
 	 * @param name Le nom associe a la case
 	 * @param description La description de la case
 	 */
-	Tile(std::string name = "", std::string description = "") : Lookable(description), name_(name) {}
+	Tile(std::string name = "", std::string description = "") : name_(name) {}
 	~Tile() = default;
+
+	std::string look() const override;
+
 	/**
 	 * @brief Connecte une case a une autre dans une direction donne.
 	 * @param other Pointeur vers la case a connecter

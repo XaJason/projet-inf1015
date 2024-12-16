@@ -20,7 +20,7 @@ public:
 	 * @param name Le nom de l'item
 	 * @param description La description de l'item
 	 */
-	Item(std::string name = "", std::string description = "") : name_(name), Lookable(description) {}
+	Item(std::string name, std::string description) : name_(name), description_(description) {}
 	/**
 	 * @brief Getter pour le nom associe a l'item
 	 * @return Le nom associe a l'item
@@ -38,6 +38,8 @@ public:
 	 */
 	std::ostream& look(std::ostream& os);
 
+	std::string look() const override;
+
 	/**
 	 * @brief Methode permettant d'ajouter un item a l'inventaire d'un joueur
 	 * @param player La reference au Player qui prend l'item
@@ -50,9 +52,9 @@ public:
 	 * @param player Reference au joueur qui utilise l'item
 	 * @return true si l'item a ete utilise avec succes
 	 */
-	virtual bool use(const Player& player) = 0;
+	virtual bool use(Player& player) = 0;
 
-	 bool use() override;
+	 virtual bool use() override;
 
 	 bool use(Taker& t) override;
 
@@ -76,7 +78,7 @@ private:
 class KeyItem : public Item {
 public:
 	KeyItem() : Item("Key", "Unlock new rooms") {};
-	bool use(const Player& player) override;
+	bool use(Player& player) override;
 };
 
 /**
@@ -86,11 +88,19 @@ public:
 class CompassItem : public Item {
 public:
 	CompassItem() : Item("Compass", "Find the direction of the exit from current position") {};
-	bool use(const Player& player) override;
+	bool use(Player& player) override;
 };
 
 class TrashItem : public Item {
 public:
 	TrashItem() : Item("Trash", "A waste of space. Don't take it.") {};
-	bool use(const Player& player) override;
+	bool use(Player& player) override;
+};
+
+class AccessItem : public Item {
+public:
+	AccessItem(std::string name, std::string description, const Tile* destination);
+	bool use(Player& player) override;
+private :
+	const Tile* destination_;
 };

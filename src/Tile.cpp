@@ -6,6 +6,23 @@
 
 using namespace std;
 
+std::string Tile::look() const {
+	std::string result = "\t-- " + name_ + " --\n";
+	result += "\t" + description_ + "\n\n";
+
+	for (const auto& [direction, connection] : connections_) {
+		if (connection != nullptr) {
+			result += "\t" + connection->name_ + " is to the " + ::directionNames.at(direction)[0] + "\n";
+		}
+	}
+
+	result += "\nYou notice:\n";
+	for (const auto& item : items_) {
+		result += "\tA " + item.second->getName() + "\n";
+	}
+	return result;
+}
+
 // PUBLIC
 // Constructors
 void Tile::connect(Tile* other, Direction direction) {
@@ -26,22 +43,6 @@ void Tile::addItem(const shared_ptr<Item>& item) {
 
 std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
 {
-
-
-	outputStream
-		<< "\t-- " << tile.name_ << " --\n"
-		<< "\t" << tile.description_ << "\n\n";
-
-	for (const auto& [direction, connection] : tile.connections_) {
-		if (connection != nullptr) {
-			outputStream << "\t" << connection->name_ << " is to the " << ::directionNames.at(direction)[0] << "\n";
-		}
-	}
-	
-	outputStream << "\nYou notice :\n";
-	for (auto&& item : tile.items_) {
-		outputStream << "\tA " << item.second->getName() << "\n";
-	}
-	return outputStream;
+	return outputStream << tile.look();
 }
 

@@ -1,8 +1,14 @@
 #include "Item.h"
 #include <iostream>
+#include "Player.h"
 
 std::ostream& Item::look(std::ostream& os) {
 	return os << this->getDescription();
+}
+
+std::string Item::look() const
+{
+	return getName() + " : " + getDescription();
 }
 
 bool Item::take(const Player& player)
@@ -25,17 +31,27 @@ std::ostream& operator<<(std::ostream& outputStream, const Item& item)
 	return outputStream << item.getName() << " : " << item.getDescription();
 }
 
-bool KeyItem::use(const Player& player)
+bool KeyItem::use(Player& player)
 {
 	return false;
 }
 
-bool CompassItem::use(const Player& player)
+bool CompassItem::use(Player& player)
 {
 	return false;
 }
 
-bool TrashItem::use(const Player& player)
+bool TrashItem::use(Player& player)
 {
 	return false;
+}
+
+AccessItem::AccessItem(std::string name, std::string description, const Tile* destination) : Item(name, description), destination_(destination)
+{
+}
+
+bool AccessItem::use(Player& player)
+{
+	player.setPosition(destination_);
+	return true;
 }
