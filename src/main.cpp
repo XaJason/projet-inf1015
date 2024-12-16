@@ -21,6 +21,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "TileMap.h"
+#include "Item.h"
 
 
 
@@ -58,6 +59,8 @@ using namespace std::literals;
  	map["Boiler Room"]->connect(map["Kitchen"], map["Lobby"], nullptr, map["Colorado Lounge"]);
  	map["Gold Hall"]->connect(map["Ballroom"], map["Storage Room"], nullptr, map["Torrance Apartment"]);
  	map["Torrance Apartment"]->connect(map["Room 237"], map["Storage Room"], map["Gold Hall"], nullptr);
+
+	map["Lobby"]->addItem(make_shared<KeyItem>());
  
  	return map;
  }
@@ -66,7 +69,8 @@ int main()
 {
 
 	TileMap map = buildLevel();
-	Game game = { map, Player() };
+	Player player = Player();
+	Game game = { map, player };
 
 	game.startGame();
 	return 0;

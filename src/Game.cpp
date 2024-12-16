@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 #include <unordered_map>
+#include <algorithm>
 
 using namespace std;
 using namespace boost::algorithm;
@@ -40,8 +41,8 @@ void Game::startGame() {
 		{"right", [this](string item) { moveInDirection(Direction::east, item); }},
 
 		{ "look", [this](string item) {look(item); }},
-		{ "take", [this](string item) { cout << "take" << cat; }},
-		{ "use", [this](string item) {cout << "use" << item; }}
+		{ "take", [this](string item) { take(item); }},
+		{ "use", [this](string item) {use(item); }}
 	};
 
 	std::cout << ">>>>> INF1015 DUNGEON CRAWLER 2024 <<<<<\n"
@@ -58,15 +59,18 @@ void Game::startGame() {
 		getline(cin, input);
 		to_lower(input);
 
+
+
 		istringstream stream(input);
 		string actionWord, details;
 		stream >> actionWord;
+
 		getline(stream, details);
 
 		try {
-			movementCommands.at(input)(""); // First parenthesis for first word of input (action word), second parenthesis for remainder of the input (details)
+			movementCommands.at(actionWord)(details); // First parenthesis for first word of input (action word), second parenthesis for remainder of the input (details)
 		}
-		catch (InvalidMovement) {
+		catch (InvalidMovement c) {
 			cout << "Well, urmmm, actually, you can't go there\n";
 		}
 		catch (out_of_range) {
@@ -84,11 +88,12 @@ void Game::moveInDirection(Direction direction, string item)
 		cout << "Headed " << ::directionNames.at(direction)[2] << "\n\n";
 	}
 	else {
-		cout << "Hol' on, I ain't never seen" << item << " before but we goin " << ::directionNames.at(direction)[2] << ".\n\n";
+		throw out_of_range("Error: Invalid item");
 	}
 	cout << player_;
 }
 
+// TODO: Implement the look, take, and use methods
 void Game::look(string item)
 {
 	if (item.empty()) {
@@ -98,3 +103,24 @@ void Game::look(string item)
 		// Look at item
 	}
 }
+
+void Game::take(string item)
+{
+	if (item.empty()) {
+		cout << player_;
+	}
+	else {
+		// Look at item
+	}
+}
+
+void Game::use(string item)
+{
+	if (item.empty()) {
+		cout << player_;
+	}
+	else {
+		// Look at item
+	}
+}
+

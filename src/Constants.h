@@ -11,4 +11,3 @@
 #include <unordered_map>
 
 extern const std::unordered_map<Direction, std::vector<std::string>> directionNames; ///< directions
-

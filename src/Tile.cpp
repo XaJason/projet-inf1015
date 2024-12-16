@@ -19,8 +19,9 @@ void Tile::connect(Tile* northTile, Tile* southTile, Tile* westTile, Tile* eastT
 	connect(eastTile, Direction::east);
 }
 
-void Tile::addItem(const Item& item) {
-	items_[item.getName()] = make_shared<TrashItem>();
+void Tile::addItem(const shared_ptr<Item>& item) {
+	//TODO: use 
+	items_[item->getName()] = item;
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
@@ -36,5 +37,11 @@ std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
 			outputStream << "\t" << connection->name_ << " is to the " << ::directionNames.at(direction)[0] << "\n";
 		}
 	}
+	
+	outputStream << "\nYou notice :\n";
+	for (auto&& item : tile.items_) {
+		outputStream << "\tA " << item.second->getName() << "\n";
+	}
 	return outputStream;
 }
+

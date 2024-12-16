@@ -1,23 +1,26 @@
 #pragma once
+#include "Actions.h"
 #include "TileMap.h"
 #include <string>
+
+using namespace actions;
+
 class Player;
 
-// TODO: Interface lookable (useable and takeable ?)
 	/**
 	 * @class Item
 	 * @brief Represente un objet dans le monde du jeu
 	 *
 	 * La classe Item represente un objet pouvant etre collecte par le Player.
 	 */
-class Item {
+class Item : public Lookable, public Takeable, public Useable {
 public:
 	/**
 	 * @brief Constructeur d'un Item
 	 * @param name Le nom de l'item
 	 * @param description La description de l'item
 	 */
-	Item(std::string name = "", std::string description = "") : name_(name), description_(description) {}
+	Item(std::string name = "", std::string description = "") : name_(name), Lookable(description) {}
 	/**
 	 * @brief Getter pour le nom associe a l'item
 	 * @return Le nom associe a l'item
@@ -49,6 +52,10 @@ public:
 	 */
 	virtual bool use(const Player& player) = 0;
 
+	 bool use() override;
+
+	 bool use(Taker& t) override;
+
 	/**
 	 * @brief Surcharge de l'operateur d'affichage
 	 * @param outputStream flux de sortie
@@ -68,9 +75,8 @@ private:
  */
 class KeyItem : public Item {
 public:
-	using Item::Item;
 	KeyItem() : Item("Key", "Unlock new rooms") {};
-	bool use(const Player& player) override { return false; }
+	bool use(const Player& player) override;
 };
 
 /**
@@ -79,14 +85,12 @@ public:
  */
 class CompassItem : public Item {
 public:
-	using Item::Item;
 	CompassItem() : Item("Compass", "Find the direction of the exit from current position") {};
-	bool use(const Player& player) override { return false; }
+	bool use(const Player& player) override;
 };
 
 class TrashItem : public Item {
 public:
-	using Item::Item;
 	TrashItem() : Item("Trash", "A waste of space. Don't take it.") {};
-	bool use(const Player& player) override { return false; }
+	bool use(const Player& player) override;
 };

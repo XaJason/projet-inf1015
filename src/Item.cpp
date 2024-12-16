@@ -5,14 +5,37 @@ std::ostream& Item::look(std::ostream& os) {
 	return os << this->getDescription();
 }
 
+bool Item::take(const Player& player)
+{
+	return false;
+}
+
+bool Item::use()
+{
+	return false;
+}
+
+bool Item::use(Taker& t)
+{
+	return false;
+}
+
 std::ostream& operator<<(std::ostream& outputStream, const Item& item)
 {
 	return outputStream << item.getName() << " : " << item.getDescription();
 }
 
-/**
- * @brief Methode permettant d'utiliser un item.
- * @param player Reference au joueur qui utilise l'item
- * @return true si l'item a ete utilise avec succes
- */
- bool Item::use(const Player& player) { return true; }
+bool KeyItem::use(const Player& player)
+{
+	return false;
+}
+
+bool CompassItem::use(const Player& player)
+{
+	return false;
+}
+
+bool TrashItem::use(const Player& player)
+{
+	return false;
+}

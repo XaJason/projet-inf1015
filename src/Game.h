@@ -38,6 +38,8 @@ public:
 	 * @param item Item a inspecter
 	 */
 	void look(string item);
+	void take(string item);
+	void use(string item);
 private:
 	TileMap map_; ///< La carte du jeu
 	Player player_; ///< Le joueur

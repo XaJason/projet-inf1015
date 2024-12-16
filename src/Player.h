@@ -6,11 +6,13 @@
 * Créé le 6 decembre 2024
 */
 #pragma once
+#include "Actions.h"
 #include "Tile.h"
 #include <memory>
 #include <ostream>
 #include <unordered_map>
 
+using namespace actions;
 class Item;
 
 /**
@@ -18,13 +20,12 @@ class Item;
  * @brief Joueur dans le jeu
  * La classe Player permet de controler la position dans le z et les objets collectes par le jeu.
  */
-class Player {
+class Player : public Taker, public User {
 public:
 
 	/**
 	 * @brief Constructeur par defaut d'un Player
 	 */
-	Player() = default;
 
 	/**
 	 * @brief Deplace le Player dans une direction donnee
@@ -52,6 +53,10 @@ public:
 	 * @param position Pointeur partage vers la case actuelle du joueur
 	 */
 	void setPosition(const Tile* position) { position_ = position; }
+
+	bool take(Takeable& t) override;
+
+	bool use(Useable& u) override;
 
 	/**
 	 * @brief Surcharge de l'operateur d'affichage du joueur
