@@ -16,3 +16,8 @@ class InvalidItem : public std::out_of_range {
 public:
 	using std::out_of_range::out_of_range;
 };
+
+class InvalidAction : public std::logic_error{
+public:
+	using std::logic_error::logic_error;
+};

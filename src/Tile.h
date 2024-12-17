@@ -98,6 +98,9 @@ public:
 	 * @return Le flux de sortie modifie
 	 */
 	friend std::ostream& operator<<(std::ostream& outputStream, const Tile& tile);
+
+	bool operator==(const Tile& other) const;
+	void dualConnect(Tile* other, Direction direction);
 private:
 	std::string name_; ///< Le nom associe a la case
 	std::string description_; ///< La description de la case

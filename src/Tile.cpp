@@ -54,3 +54,20 @@ const std::unordered_map<std::string, shared_ptr<Item>>::const_iterator Tile::ge
 		return item.second->containsKeyword(details);
 		});
 }
+
+bool Tile::operator==(const Tile& other) const
+{
+		return name_ == other.name_ && description_ == other.description_;
+}
+
+void Tile::dualConnect(Tile* other, Direction direction) {
+	static const std::unordered_map<Direction, Direction> inverseDirections = {
+	{Direction::north, Direction::south},
+	{Direction::south, Direction::north},
+	{Direction::west, Direction::east},
+	{Direction::east, Direction::west}
+	};
+
+	connect(other, direction);
+	other->connect(this, inverseDirections.at(direction));
+}

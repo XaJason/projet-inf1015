@@ -1,6 +1,7 @@
 #include "Item.h"
 #include <iostream>
 #include "Player.h"
+#include "Exceptions.h"
 
 Item::Item(const std::string& name, const std::string& description, const std::string& usage, const std::unordered_set<std::string>& keywords) : name_(name), description_(description), usage_(usage), keywords_(keywords) {}
 
@@ -38,10 +39,6 @@ std::ostream& operator<<(std::ostream& outputStream, const Item& item)
 	return outputStream << item.getName() << " : " << item.getDescription();
 }
 
-//string KeyItem::use(Player& player)
-//{
-//	return "used KeyItem";
-//}
 
 string CompassItem::use(Player& player)
 {
@@ -79,4 +76,19 @@ bool Item::containsKeyword(const string& word)
 				return true;
 		}
 	return false;
+}
+
+KeyItem::KeyItem(const std::string& name, const std::string& description, const std::unordered_set<std::string>& keywords, const std::pair<Tile*, Tile*>& linkedTiles, const Direction& direction) : Item(name, description, "", keywords), linkedTiles_(linkedTiles), direction_(direction)
+{
+}
+
+string KeyItem::use(Player& player)
+{
+	if (*player.getPosition() == *linkedTiles_.first) {
+		linkedTiles_.first->dualConnect(linkedTiles_.second, direction_);
+		return "A passage to " + linkedTiles_.second->getName() + " has been unlocked.";
+	}
+	else {
+		throw InvalidAction("The key doesn't seem to fit anywhere.");
+	}
 }

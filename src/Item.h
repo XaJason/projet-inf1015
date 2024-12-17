@@ -82,8 +82,11 @@ private:
  */
 class KeyItem : public Item {
 public:
-	using Item::Item;
-	//string use(Player& player) override;
+	KeyItem(const std::string& name, const std::string& description, const std::unordered_set<std::string>& keywords, const std::pair<Tile*, Tile*>& linkedTiles, const Direction& direction);
+	string use(Player& player) override;
+private:
+	std::pair<Tile*, Tile*> linkedTiles_;
+	Direction direction_;
 };
 
 /**
