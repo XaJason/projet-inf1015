@@ -18,9 +18,9 @@ std::string Tile::look() const {
 		}
 	}
 
-	result += "\nYou notice:\n";
+	result += "\nYou notice:";
 	for (const auto& item : items_) {
-		result += "\tA " + item.second->getName() + "\n";
+		result += "\t\nA " + item.second->getName();
 	}
 	return result;
 }

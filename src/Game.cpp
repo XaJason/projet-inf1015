@@ -18,35 +18,33 @@ Game::Game(const TileMap& map, const Player& player)
 }
 
 void Game::startGame() {
-	static const std::string cat = R"(
- /\_/\  
-( o.o ) 
- > ^ <
-)";
+	static const std::unordered_map < std::string, std::function<const string() >> commandsWithoutDetails = {
+		{"n", [this]() { return moveInDirection(Direction::north); }},
+		{"s", [this]() { return moveInDirection(Direction::south); }},
+		{"w", [this]() { return moveInDirection(Direction::west); }},
+		{"e", [this]() { return moveInDirection(Direction::east); }},
 
-	static const std::unordered_map < std::string, std::function<void(const string& details) >> movementCommands = {
-		{"n", [this](const string& details) { moveInDirection(Direction::north, details); }},
-		{"s", [this](const string& details) { moveInDirection(Direction::south, details); }},
-		{"w", [this](const string& details) { moveInDirection(Direction::west, details); }},
-		{"e", [this](const string& details) { moveInDirection(Direction::east, details); }},
+		{"north", [this]() { return moveInDirection(Direction::north); }},
+		{"south", [this]() { return moveInDirection(Direction::south); }},
+		{"west", [this]() { return moveInDirection(Direction::west); }},
+		{"east", [this]() { return moveInDirection(Direction::east); }},
 
-		{"north", [this](const string& details) { moveInDirection(Direction::north, details); }},
-		{"south", [this](const string& details) { moveInDirection(Direction::south, details); }},
-		{"west", [this](const string& details) { moveInDirection(Direction::west, details); }},
-		{"east", [this](const string& details) { moveInDirection(Direction::east, details); }},
+		{"up", [this]() { return moveInDirection(Direction::north); }},
+		{"down", [this]() { return moveInDirection(Direction::south); }},
+		{"left", [this]() { return moveInDirection(Direction::west); }},
+		{"right", [this]() { return moveInDirection(Direction::east); }},
 
-		{"up", [this](const string& details) { moveInDirection(Direction::north, details); }},
-		{"down", [this](const string& details) { moveInDirection(Direction::south, details); }},
-		{"left", [this](const string& details) { moveInDirection(Direction::west, details); }},
-		{"right", [this](const string& details) { moveInDirection(Direction::east, details); }},
+		{ "look", [this]() { return look(); }},
 
-		{ "look", [this](const string& details) {look(details); }},
-		{ "take", [this](const string& details) { take(details); }},
-		{ "use", [this](const string& details) {use(details); }},
+		{ "close", [this]() { return exit(); }},
+		{ "exit", [this]() { return exit(); }},
+		{ "quit", [this]() { return exit(); }}
+	};
 
-		{ "close", [this](const string& details) {use(details); } },
-		{ "exit", [this](const string& details) {use(details); } },
-		{ "quit", [this](const string& details) {use(details); }},
+	static const std::unordered_map < std::string, std::function<const string(const string& details) >> commandsWithDetails = {
+	{ "look", [this](const string& details) { return look(details); }},
+	{ "take", [this](const string& details) { return take(details); }},
+	{ "use", [this](const string& details) { return use(details); }},
 	};
 
 	std::cout << ">>>>> INF1015 DUNGEON CRAWLER 2024 <<<<<\n"
@@ -55,10 +53,10 @@ void Game::startGame() {
 		<< "          WELCOME TO THE ADVENTURE!\n"
 		<< "==========================================\n\n"
 		<< "Map: " << map_.getName() << "\n\n"
-		<< player_ << "\n";
+		<< look() << endl;
 
-	while (true) {
-		cout << "> ";
+	while (!gameOver_) {
+		cout << endl << "> ";
 		string input;
 		getline(cin, input);
 		to_lower(input);
@@ -70,57 +68,49 @@ void Game::startGame() {
 		getline(stream, details);
 
 		try {
-			movementCommands.at(actionWord)(details); // First parenthesis for first word of input (action word), second parenthesis for remainder of the input (details)
+			if (details.empty()) {
+				cout << commandsWithoutDetails.at(actionWord)() << endl;
+			}
+			else
+				cout << commandsWithDetails.at(actionWord)(details) << endl; // First parenthesis for first word of input (action word), second parenthesis for remainder of the input (details)
 		}
 		catch (const InvalidMovement& e) {
-			cout << e.what();
+			cout << e.what() << endl;
 		}
-		catch (const out_of_range& e) {
-			cout << "Error: Invalid command " << e.what();
+		catch (const InvalidItem& e) {
+			cout << e.what() << endl;
 		}
-
-		cout << "\n";
+		catch (const out_of_range&) {
+			cout << "Error: Invalid command!" << endl;
+		}
 	}
 }
 
-void Game::moveInDirection(Direction direction, const string& details)
+const string Game::moveInDirection(Direction direction)
 {
 	player_.move(direction);
-	if (details.empty()) {
-		cout << "Headed " << ::directionNames.at(direction)[2] << "\n\n";
-	}
-	else {
-		throw out_of_range("Error: Invalid item");
-	}
-	cout << player_;
+	return "Headed " + ::directionNames.at(direction)[2] + "\n\n" + look();
 }
+
+const string Game::look() const { return player_.look();  }
 
 // TODO: Implement the look, take, and use methods
-void Game::look(const string& details)
+const string Game::look(const string& details) const
 {
-	if (details.empty()) {
-		cout << player_;
-	}
-	else {
-		// Look at item
-	}
+	return player_.look(details);
 }
 
-void Game::take(const string& details)
+const string Game::take(const string& details)
 {
-	if (details.empty()) {
-		cout << player_;
-	}
-	else {
-		// Look at item
-	}
+	return "";
 }
 
-void Game::use(const string& details)
+const string Game::use(const string& details)
 {
-	if (details.empty()) {
-		throw out_of_range("Error: Invalid LeBron");
-	}
-		cout << player_.use(details);
+		return player_.use(details);
 }
 
+const string Game::exit() {
+	gameOver_ = true;
+	return "\nWow! Is that a galaxy? Enough of those and I might make it back to my univer...\n";
+}

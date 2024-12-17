@@ -60,18 +60,19 @@ using namespace std::literals;
  	map["Gold Hall"]->connect(map["Ballroom"], map["Storage Room"], nullptr, map["Torrance Apartment"]);
  	map["Torrance Apartment"]->connect(map["Room 237"], map["Storage Room"], map["Gold Hall"], nullptr);
 
-	map["Lobby"]->addItem(make_shared<KeyItem>());
+	
 
-	unordered_set <string> keywords = { "golden", "ladder" };
+	unordered_set <string> ladderKeywords = { "golden", "ladder" };
+	unordered_set <string> keyKeywords = { "old", "key" };
 
-    map["Colorado Lounge"]->addItem(make_shared<AccessItem>("ladder golden", "It looks old and smells ... rotten.", keywords, map["Gold Hall"]));
+    map["Lobby"]->addItem(make_shared<KeyItem>("Old Key", "It is rusty and quite old.", keyKeywords));
+    map["Colorado Lounge"]->addItem(make_shared<AccessItem>("Golden Ladder", "It looks old and smells ... rotten.", ladderKeywords, map["Gold Hall"]));
  
  	return map;
  }
 
 int main()
 {
-
 	TileMap map = buildLevel();
 	Player player = Player();
 	Game game = { map, player };

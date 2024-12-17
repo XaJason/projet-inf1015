@@ -81,6 +81,7 @@ private:
  */
 class KeyItem : public Item {
 public:
+	using Item::Item;
 	KeyItem() : Item("Key", "Unlock new rooms") {};
 	string use(Player& player) override;
 };
@@ -91,18 +92,21 @@ public:
  */
 class CompassItem : public Item {
 public:
+	using Item::Item;
 	CompassItem() : Item("Compass", "Find the direction of the exit from current position") {};
 	string use(Player& player) override;
 };
 
 class TrashItem : public Item {
 public:
+	using Item::Item;
 	TrashItem() : Item("Trash", "A waste of space. Don't take it.") {};
 	string use(Player& player) override;
 };
 
 class AccessItem : public Item {
 public:
+	using Item::Item;
 	AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, const Tile* destination);
 	string use(Player& player) override;
 	const Tile* use() override;

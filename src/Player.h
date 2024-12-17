@@ -60,7 +60,11 @@ public:
 
 	string use(const string& details);
 
-	std::unordered_map<std::string, shared_ptr<Item>>::const_iterator findItem(const string& details);
+	const string look() const;
+
+	const string look(const string& details) const;
+
+	std::unordered_map<std::string, shared_ptr<Item>>::const_iterator findItem(const string& details) const;
 
 	/**
 	 * @brief Surcharge de l'operateur d'affichage du joueur

@@ -28,13 +28,17 @@ public:
 	 */
 	void startGame();
 
-	void moveInDirection(Direction direction, const string& details);
+	const string moveInDirection(Direction direction);
 
-	void look(const string& details);
+	const string look() const;
 
-	void take(const string& details);
+	const string look(const string& details) const;
 
-	void use(const string& details);
+	const string take(const string& details);
+
+	const string use(const string& details);
+
+	const string exit();
 
 	/**
  * @brief Deplace le joueur vers une direction donnee
@@ -42,6 +46,7 @@ public:
  * @param item l'item present a la case vers laquelle le joueur se deplace
  */
 private:
+	bool gameOver_ = false;
 	TileMap map_; ///< La carte du jeu
 	Player player_; ///< Le joueur
 };
