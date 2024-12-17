@@ -27,19 +27,20 @@ public:
 	 * @brief Demarrer le jeu
 	 */
 	void startGame();
+
+	void moveInDirection(Direction direction, const string& details);
+
+	void look(const string& details);
+
+	void take(const string& details);
+
+	void use(const string& details);
+
 	/**
-	 * @brief Deplace le joueur vers une direction donnee
-	 * @param direction La direction vers laquelle deplacer le joueur
-	 * @param item l'item present a la case vers laquelle le joueur se deplace
-	 */
-	void moveInDirection(Direction direction, std::string item);
-	/**
-	 * @brief Inspecte un item en affichant la description
-	 * @param item Item a inspecter
-	 */
-	void look(string item);
-	void take(string item);
-	void use(string item);
+ * @brief Deplace le joueur vers une direction donnee
+ * @param direction La direction vers laquelle deplacer le joueur
+ * @param item l'item present a la case vers laquelle le joueur se deplace
+ */
 private:
 	TileMap map_; ///< La carte du jeu
 	Player player_; ///< Le joueur

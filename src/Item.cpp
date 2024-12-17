@@ -16,9 +16,9 @@ bool Item::take(const Player& player)
 	return false;
 }
 
-bool Item::use()
+const Tile* Item::use()
 {
-	return false;
+	return nullptr;
 }
 
 bool Item::use(Taker& t)
@@ -31,27 +31,45 @@ std::ostream& operator<<(std::ostream& outputStream, const Item& item)
 	return outputStream << item.getName() << " : " << item.getDescription();
 }
 
-bool KeyItem::use(Player& player)
+string KeyItem::use(Player& player)
 {
-	return false;
+	return "used KeyItem";
 }
 
-bool CompassItem::use(Player& player)
+string CompassItem::use(Player& player)
 {
-	return false;
+	return "used CompassItem";
 }
 
-bool TrashItem::use(Player& player)
+string TrashItem::use(Player& player)
 {
-	return false;
+	return "used TrashItem";
 }
 
-AccessItem::AccessItem(std::string name, std::string description, const Tile* destination) : Item(name, description), destination_(destination)
+AccessItem::AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, const Tile* destination) : Item(name, description, keywords), destination_(destination)
 {
 }
 
-bool AccessItem::use(Player& player)
+string AccessItem::use(Player& player)
 {
 	player.setPosition(destination_);
-	return true;
+	return player.getPosition()->look();
+}
+
+const Tile* AccessItem::use()
+{
+	return destination_;
+}
+
+bool Item::containsKeyword(const string& word)
+{
+	if (keywords_.contains(word))
+		return true;
+
+	for (const auto& keyword : keywords_)
+		{
+			if (word.find(keyword) != string::npos)
+				return true;
+		}
+	return false;
 }

@@ -59,6 +59,9 @@ public:
 	 * @param item L'objet a ajouter
 	 */
 	void addItem(const shared_ptr<Item>& item);
+
+	const std::unordered_map<std::string, shared_ptr<Item>>::const_iterator getItemIterator(const string& details) const;
+
 	/**
 	 * @brief Getter pour le nom de la case
 	 * @return Le nom associe a la case
@@ -86,6 +89,8 @@ public:
 		}
 		return nullptr;
 	}
+
+	const auto& getItems() const { return items_; }
 	/**
 	 * @brief Surcharge de l'operateur d'affichage de la case
 	 * @param outputStream Flux de sortie

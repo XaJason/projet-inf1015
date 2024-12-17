@@ -24,25 +24,29 @@ void Game::startGame() {
  > ^ <
 )";
 
-	static const std::unordered_map < std::string, std::function<void(string) >> movementCommands = {
-		{"n", [this](string item) { moveInDirection(Direction::north, item); }},
-		{"s", [this](string item) { moveInDirection(Direction::south, item); }},
-		{"w", [this](string item) { moveInDirection(Direction::west, item); }},
-		{"e", [this](string item) { moveInDirection(Direction::east, item); }},
+	static const std::unordered_map < std::string, std::function<void(const string& details) >> movementCommands = {
+		{"n", [this](const string& details) { moveInDirection(Direction::north, details); }},
+		{"s", [this](const string& details) { moveInDirection(Direction::south, details); }},
+		{"w", [this](const string& details) { moveInDirection(Direction::west, details); }},
+		{"e", [this](const string& details) { moveInDirection(Direction::east, details); }},
 
-		{"north", [this](string item) { moveInDirection(Direction::north, item); }},
-		{"south", [this](string item) { moveInDirection(Direction::south, item); }},
-		{"west", [this](string item) { moveInDirection(Direction::west, item); }},
-		{"east", [this](string item) { moveInDirection(Direction::east, item); }},
+		{"north", [this](const string& details) { moveInDirection(Direction::north, details); }},
+		{"south", [this](const string& details) { moveInDirection(Direction::south, details); }},
+		{"west", [this](const string& details) { moveInDirection(Direction::west, details); }},
+		{"east", [this](const string& details) { moveInDirection(Direction::east, details); }},
 
-		{"up", [this](string item) { moveInDirection(Direction::north, item); }},
-		{"down", [this](string item) { moveInDirection(Direction::south, item); }},
-		{"left", [this](string item) { moveInDirection(Direction::west, item); }},
-		{"right", [this](string item) { moveInDirection(Direction::east, item); }},
+		{"up", [this](const string& details) { moveInDirection(Direction::north, details); }},
+		{"down", [this](const string& details) { moveInDirection(Direction::south, details); }},
+		{"left", [this](const string& details) { moveInDirection(Direction::west, details); }},
+		{"right", [this](const string& details) { moveInDirection(Direction::east, details); }},
 
-		{ "look", [this](string item) {look(item); }},
-		{ "take", [this](string item) { take(item); }},
-		{ "use", [this](string item) {use(item); }}
+		{ "look", [this](const string& details) {look(details); }},
+		{ "take", [this](const string& details) { take(details); }},
+		{ "use", [this](const string& details) {use(details); }},
+
+		{ "close", [this](const string& details) {use(details); } },
+		{ "exit", [this](const string& details) {use(details); } },
+		{ "quit", [this](const string& details) {use(details); }},
 	};
 
 	std::cout << ">>>>> INF1015 DUNGEON CRAWLER 2024 <<<<<\n"
@@ -59,12 +63,10 @@ void Game::startGame() {
 		getline(cin, input);
 		to_lower(input);
 
-
-
 		istringstream stream(input);
 		string actionWord, details;
 		stream >> actionWord;
-
+		
 		getline(stream, details);
 
 		try {
@@ -73,18 +75,18 @@ void Game::startGame() {
 		catch (const InvalidMovement& e) {
 			cout << e.what();
 		}
-		catch (const out_of_range&) {
-			cout << "Error: Invalid command";
+		catch (const out_of_range& e) {
+			cout << "Error: Invalid command " << e.what();
 		}
 
 		cout << "\n";
 	}
 }
 
-void Game::moveInDirection(Direction direction, string item)
+void Game::moveInDirection(Direction direction, const string& details)
 {
 	player_.move(direction);
-	if (item.empty()) {
+	if (details.empty()) {
 		cout << "Headed " << ::directionNames.at(direction)[2] << "\n\n";
 	}
 	else {
@@ -94,9 +96,9 @@ void Game::moveInDirection(Direction direction, string item)
 }
 
 // TODO: Implement the look, take, and use methods
-void Game::look(string item)
+void Game::look(const string& details)
 {
-	if (item.empty()) {
+	if (details.empty()) {
 		cout << player_;
 	}
 	else {
@@ -104,9 +106,9 @@ void Game::look(string item)
 	}
 }
 
-void Game::take(string item)
+void Game::take(const string& details)
 {
-	if (item.empty()) {
+	if (details.empty()) {
 		cout << player_;
 	}
 	else {
@@ -114,14 +116,11 @@ void Game::take(string item)
 	}
 }
 
-void Game::use(string item)
+void Game::use(const string& details)
 {
-	
-	if (item.empty() ) {
-		throw out_of_range("Error: Invalid item");
+	if (details.empty()) {
+		throw out_of_range("Error: Invalid LeBron");
 	}
-	else {
-		
-	}
+		cout << player_.use(details);
 }
 

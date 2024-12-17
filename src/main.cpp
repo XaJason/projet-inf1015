@@ -62,7 +62,9 @@ using namespace std::literals;
 
 	map["Lobby"]->addItem(make_shared<KeyItem>());
 
-	map["Colorado Lounge"]->addItem(make_shared<AccessItem>("Ladder", "It looks old and smells ... rotten.", map["Gold Hall"]));
+	unordered_set <string> keywords = { "golden", "ladder" };
+
+    map["Colorado Lounge"]->addItem(make_shared<AccessItem>("ladder golden", "It looks old and smells ... rotten.", keywords, map["Gold Hall"]));
  
  	return map;
  }

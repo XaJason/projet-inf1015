@@ -3,8 +3,10 @@
 #include <boost/functional/hash.hpp>
 #include <unordered_map>
 #include "Item.h"
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
+using namespace boost::algorithm;
 
 std::string Tile::look() const {
 	std::string result = "\t-- " + name_ + " --\n";
@@ -46,3 +48,9 @@ std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
 	return outputStream << tile.look();
 }
 
+// TODO: Interface to avoid code repetition with Player
+const std::unordered_map<std::string, shared_ptr<Item>>::const_iterator Tile::getItemIterator(const string& details) const {
+	return find_if(items_.begin(), items_.end(), [&details](std::pair<const std::string, std::shared_ptr<Item>> item) {
+		return item.second->containsKeyword(details);
+		});
+}

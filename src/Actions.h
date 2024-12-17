@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+class Tile;
+
 /**
  * @brief Namespace qui contient les classes necessaires pour effectuer des actions
  */
@@ -49,7 +51,7 @@ namespace actions {
 		/**
 		 * @brief Methode permettant d'utiliser un objet Useable, sans aucun parametre.
 		 */
-		virtual bool use() = 0;
+		virtual const Tile* use() = 0;
 		/**
 		 * @brief Methode permettant d'utiliser un objet Useable, avec acces au Taker qui utilise l'objet
 		 * @param t Objet necessaire a l'utilisation 

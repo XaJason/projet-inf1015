@@ -58,6 +58,10 @@ public:
 
 	bool use(Useable& u) override;
 
+	string use(const string& details);
+
+	std::unordered_map<std::string, shared_ptr<Item>>::const_iterator findItem(const string& details);
+
 	/**
 	 * @brief Surcharge de l'operateur d'affichage du joueur
 	 * @param outputStream Flux de sortie

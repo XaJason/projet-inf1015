@@ -2,6 +2,7 @@
 #include "Actions.h"
 #include "TileMap.h"
 #include <string>
+#include<unordered_set>
 
 using namespace actions;
 
@@ -20,7 +21,7 @@ public:
 	 * @param name Le nom de l'item
 	 * @param description La description de l'item
 	 */
-	Item(std::string name, std::string description) : name_(name), description_(description) {}
+	Item(const std::string& name, const std::string& description, const std::unordered_set<std::string>& keywords = {}) : name_(name), description_(description), keywords_(keywords) {}
 	/**
 	 * @brief Getter pour le nom associe a l'item
 	 * @return Le nom associe a l'item
@@ -52,11 +53,13 @@ public:
 	 * @param player Reference au joueur qui utilise l'item
 	 * @return true si l'item a ete utilise avec succes
 	 */
-	virtual bool use(Player& player) = 0;
+	virtual string use(Player& player) = 0;
 
-	 virtual bool use() override;
+	virtual const Tile* use() override;
 
 	 bool use(Taker& t) override;
+
+	 bool containsKeyword(const string& word);
 
 	/**
 	 * @brief Surcharge de l'operateur d'affichage
@@ -69,6 +72,7 @@ public:
 private:
 	std::string name_; ///< Nom associe a l'item
 	std::string description_; ///< Description de l'item
+	std::unordered_set<string> keywords_;
 };
 
 /**
@@ -78,7 +82,7 @@ private:
 class KeyItem : public Item {
 public:
 	KeyItem() : Item("Key", "Unlock new rooms") {};
-	bool use(Player& player) override;
+	string use(Player& player) override;
 };
 
 /**
@@ -88,19 +92,20 @@ public:
 class CompassItem : public Item {
 public:
 	CompassItem() : Item("Compass", "Find the direction of the exit from current position") {};
-	bool use(Player& player) override;
+	string use(Player& player) override;
 };
 
 class TrashItem : public Item {
 public:
 	TrashItem() : Item("Trash", "A waste of space. Don't take it.") {};
-	bool use(Player& player) override;
+	string use(Player& player) override;
 };
 
 class AccessItem : public Item {
 public:
-	AccessItem(std::string name, std::string description, const Tile* destination);
-	bool use(Player& player) override;
+	AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, const Tile* destination);
+	string use(Player& player) override;
+	const Tile* use() override;
 private :
 	const Tile* destination_;
 };
