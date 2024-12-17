@@ -35,7 +35,7 @@ public:
 	 * @param name Le nom associe a la case
 	 * @param description La description de la case
 	 */
-	Tile(std::string name = "", std::string description = "") : name_(name) {}
+	Tile(std::string name = "", std::string description = "") : name_(name), description_(description) {}
 	~Tile() = default;
 
 	std::string look() const override;

@@ -2,18 +2,25 @@
 #include <iostream>
 #include "Player.h"
 
+Item::Item(const std::string& name, const std::string& description, const std::string& usage, const std::unordered_set<std::string>& keywords) : name_(name), description_(description), usage_(usage), keywords_(keywords) {}
+
 std::ostream& Item::look(std::ostream& os) {
 	return os << this->getDescription();
 }
 
 std::string Item::look() const
 {
-	return getName() + " : " + getDescription();
+	return getDescription();
 }
 
 bool Item::take(const Player& player)
 {
 	return false;
+}
+
+string Item::use([[maybe_unused]] Player& player)
+{
+	return usage_;
 }
 
 const Tile* Item::use()
@@ -31,10 +38,10 @@ std::ostream& operator<<(std::ostream& outputStream, const Item& item)
 	return outputStream << item.getName() << " : " << item.getDescription();
 }
 
-string KeyItem::use(Player& player)
-{
-	return "used KeyItem";
-}
+//string KeyItem::use(Player& player)
+//{
+//	return "used KeyItem";
+//}
 
 string CompassItem::use(Player& player)
 {
@@ -46,7 +53,7 @@ string TrashItem::use(Player& player)
 	return "used TrashItem";
 }
 
-AccessItem::AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, const Tile* destination) : Item(name, description, keywords), destination_(destination)
+AccessItem::AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, const Tile* destination) : Item(name, description, "", keywords), destination_(destination)
 {
 }
 

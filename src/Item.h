@@ -21,7 +21,7 @@ public:
 	 * @param name Le nom de l'item
 	 * @param description La description de l'item
 	 */
-	Item(const std::string& name, const std::string& description, const std::unordered_set<std::string>& keywords = {}) : name_(name), description_(description), keywords_(keywords) {}
+	Item(const std::string& name, const std::string& description, const std::string& usage, const std::unordered_set<std::string>& keywords = {});
 	/**
 	 * @brief Getter pour le nom associe a l'item
 	 * @return Le nom associe a l'item
@@ -53,7 +53,7 @@ public:
 	 * @param player Reference au joueur qui utilise l'item
 	 * @return true si l'item a ete utilise avec succes
 	 */
-	virtual string use(Player& player) = 0;
+	virtual string use([[maybe_unused]] Player& player);
 
 	virtual const Tile* use() override;
 
@@ -72,6 +72,7 @@ public:
 private:
 	std::string name_; ///< Nom associe a l'item
 	std::string description_; ///< Description de l'item
+	std::string usage_; ///< message d'utilisation de l'item
 	std::unordered_set<string> keywords_;
 };
 
@@ -82,8 +83,7 @@ private:
 class KeyItem : public Item {
 public:
 	using Item::Item;
-	KeyItem() : Item("Key", "Unlock new rooms") {};
-	string use(Player& player) override;
+	//string use(Player& player) override;
 };
 
 /**
@@ -93,14 +93,12 @@ public:
 class CompassItem : public Item {
 public:
 	using Item::Item;
-	CompassItem() : Item("Compass", "Find the direction of the exit from current position") {};
 	string use(Player& player) override;
 };
 
 class TrashItem : public Item {
 public:
 	using Item::Item;
-	TrashItem() : Item("Trash", "A waste of space. Don't take it.") {};
 	string use(Player& player) override;
 };
 

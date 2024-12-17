@@ -36,6 +36,13 @@ string Player::use(const string& details) {
 }
 
 const string Player::look() const {
+	string inventory;
+	if (!items_.empty()) {
+		inventory = "You have :";
+		for (const auto& item : items_) {
+			inventory += "\n\t" + item.second->getName();
+		}
+	}
 	return position_->look();
 }
 

@@ -48,7 +48,7 @@ void Game::startGame() {
 	};
 
 	std::cout << ">>>>> INF1015 DUNGEON CRAWLER 2024 <<<<<\n"
-		<< ">>> GAME OF THE YEAR EDITION <<<\n\n"
+		<< ">  >  > GAME OF THE YEAR EDITION <  <  <\n\n"
 		<< "==========================================\n"
 		<< "          WELCOME TO THE ADVENTURE!\n"
 		<< "==========================================\n\n"

@@ -64,9 +64,10 @@ using namespace std::literals;
 
 	unordered_set <string> ladderKeywords = { "golden", "ladder" };
 	unordered_set <string> keyKeywords = { "old", "key" };
+	static const string keyWrongUsage = "The key doesn't seem to fit anywhere.";
 
-    map["Lobby"]->addItem(make_shared<KeyItem>("Old Key", "It is rusty and quite old.", keyKeywords));
-    map["Colorado Lounge"]->addItem(make_shared<AccessItem>("Golden Ladder", "It looks old and smells ... rotten.", ladderKeywords, map["Gold Hall"]));
+    map["Lobby"]->addItem(make_shared<KeyItem>("An old key", "It is rusty and quite old.", keyWrongUsage, keyKeywords));
+    map["Colorado Lounge"]->addItem(make_shared<AccessItem>("A golden ladder", "It looks old and smells ... rotten.", ladderKeywords, map["Gold Hall"]));
  
  	return map;
  }

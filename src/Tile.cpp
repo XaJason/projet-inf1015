@@ -10,17 +10,17 @@ using namespace boost::algorithm;
 
 std::string Tile::look() const {
 	std::string result = "\t-- " + name_ + " --\n";
-	result += "\t" + description_ + "\n\n";
+	result += "\t" + description_ + "\n";
 
 	for (const auto& [direction, connection] : connections_) {
 		if (connection != nullptr) {
-			result += "\t" + connection->name_ + " is to the " + ::directionNames.at(direction)[0] + "\n";
+			result += "\n\t" + connection->name_ + " is to the " + ::directionNames.at(direction)[0];
 		}
 	}
 
-	result += "\nYou notice:";
+	result += "\n\nYou notice:";
 	for (const auto& item : items_) {
-		result += "\t\nA " + item.second->getName();
+		result += "\n\t" + item.second->getName();
 	}
 	return result;
 }
