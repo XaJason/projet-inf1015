@@ -32,7 +32,7 @@ using namespace std::literals;
  */
 static TileMap buildLevel() {
 	vector<Tile> tiles = {
-	Tile("Lobby", "Grand entrance hall with menacing Native totems. So many doors... Where could they lead to?"),
+	Tile("Lobby", "Grand entrance hall with menacing Native totems and a lot of doors."),
 	Tile("Colorado Lounge", "Abandoned bar. Mirrors reflect impossible scenes."),
 	Tile("Kitchen", "Industrial silence. Gleaming knife racks."),
 	Tile("Storage Room", "Yellowed newspapers. Dark hotel secrets."),

@@ -19,7 +19,7 @@ void Player::moveInDirection(const Direction& direction) {
 			position_ = destination;
 		}
 		else {
-			throw InvalidMovement("Here's Johnny! But you still can't get through the wall.");
+			throw InvalidMovement("Even if we were between Platforms 9 and 10, you would faceplant in the wall.");
 		}
 	}
 
@@ -46,7 +46,7 @@ const string Player::use(const string& details) {
 const string Player::look() const {
 	string inventory;
 	if (!items_.empty()) {
-		inventory = "\nYou have :";
+		inventory = "\n\nYou have :";
 		for (const auto& item : items_) {
 			inventory += "\n\t" + item.second->getName();
 		}
@@ -69,7 +69,7 @@ std::unordered_map<std::string, shared_ptr<Item>>::const_iterator Player::findIn
 		});
 
 	if (iterator == items_.end()) {
-		throw InvalidItem("I don't see" + details + " anymore, Fanux probably taxed it.");
+		throw InvalidItem("I don't see" + details + " anymore, Fanum probably taxed it.");
 	}
 
 	return iterator;

@@ -88,7 +88,7 @@ void Game::startGame() {
 			cout << e.what() << endl;
 		}
 		catch (const out_of_range&) {
-			cout << "Error: Invalid command!" << endl;
+			cout << "Do you need to be taken to a doctor?" << endl;
 		}
 	}
 }

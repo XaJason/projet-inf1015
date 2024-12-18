@@ -95,6 +95,6 @@ const string Tile::extractItem(const string& details, Player& player)
 		return "You take " + item->getName() + ".";
 	}
 	else {
-		throw InvalidItem("You would need the new 2024 Ford F-150 to pick " + item->getName() + " up. Tough this smart can only be called F-150.");
+		throw InvalidItem("You would need the new 2024 Ford F-150 to pick " + item->getName() + " up. You're not a Ford F-150.");
 	}
 }

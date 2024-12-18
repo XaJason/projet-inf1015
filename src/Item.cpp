@@ -94,7 +94,7 @@ string KeyItem::use(Player& player)
 {
 	if (*player.getPosition() == *linkedTiles_.first) {
 		linkedTiles_.first->dualConnect(linkedTiles_.second, direction_);
-		return "Come and play with us at " + linkedTiles_.second->getName() + ". Forever... and ever... and ever.";
+		return "Hello. Come and play with us. come and play with us at " + linkedTiles_.second->getName() + ". Forever... and ever... and ever.";
 	}
 	else {
 		throw InvalidAction(name_ + " doesn't seem to fit anywhere.");
