@@ -64,7 +64,7 @@ const std::unordered_map<std::string, shared_ptr<Item>>::const_iterator Tile::ge
 		return item.second->containsKeyword(details);
 		});
 	if (iterator == items_.end()) {
-		throw InvalidItem("Error : Item not found.");
+		throw InvalidItem("Is " + details + "in the room with us right now?");
 	}
 	return iterator;
 }
@@ -95,6 +95,6 @@ const string Tile::extractItem(const string& details, Player& player)
 		return "You take " + item->getName() + ".";
 	}
 	else {
-		throw InvalidItem("Error: " + item->getName() + " is not takeable.");
+		throw InvalidItem("You would need the new 2024 Ford F-150 to pick " + item->getName() + " up. Tough this smart can only be called F-150.");
 	}
 }

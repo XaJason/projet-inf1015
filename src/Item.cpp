@@ -65,7 +65,7 @@ AccessItem::AccessItem(const string& name, const string& description, const unor
 string AccessItem::use(Player& player)
 {
 	player.setPosition(destination_);
-	return player.getPosition()->look();
+	return  "You smash the wall to " + destination_->getName() + " with " + name_ + ".\n\n" + player.look();
 }
 
 const Tile* AccessItem::use()
@@ -94,7 +94,7 @@ string KeyItem::use(Player& player)
 {
 	if (*player.getPosition() == *linkedTiles_.first) {
 		linkedTiles_.first->dualConnect(linkedTiles_.second, direction_);
-		return "A passage to " + linkedTiles_.second->getName() + " has been unlocked.";
+		return "Come and play with us at " + linkedTiles_.second->getName() + ". Forever... and ever... and ever.";
 	}
 	else {
 		throw InvalidAction(name_ + " doesn't seem to fit anywhere.");

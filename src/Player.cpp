@@ -12,14 +12,14 @@
 #include <utility>
 
 using namespace boost::algorithm;
-void Player::move(const Direction& direction) {
+void Player::moveInDirection(const Direction& direction) {
 	if (position_ != nullptr) { // Verification initialization
 		Tile* destination = position_->getConnection(direction);
 		if (destination != nullptr) {
 			position_ = destination;
 		}
 		else {
-			throw InvalidMovement("Error : No accessible room in this direction.");
+			throw InvalidMovement("Here's Johnny! But you still can't get through the wall.");
 		}
 	}
 
@@ -69,7 +69,7 @@ std::unordered_map<std::string, shared_ptr<Item>>::const_iterator Player::findIn
 		});
 
 	if (iterator == items_.end()) {
-		throw InvalidItem("Error: Invalid Item");
+		throw InvalidItem("I don't see" + details + " anymore, Fanux probably taxed it.");
 	}
 
 	return iterator;

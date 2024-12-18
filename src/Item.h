@@ -76,10 +76,11 @@ public:
 
 protected:
 	std::string name_; ///< Nom associe a l'item
+	std::string usage_; ///< message d'utilisation de l'item
 private:
 	bool isTakeable_;
 	std::string description_; ///< Description de l'item
-	std::string usage_; ///< message d'utilisation de l'item
+
 	std::unordered_set<string> keywords_;
 };
 

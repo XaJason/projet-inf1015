@@ -29,16 +29,12 @@ public:
 	 * @brief Constructeur par defaut d'un Player
 	 */
 
-	 /**
-	  * @brief Deplace le Player dans une direction donnee
-	  * @param direction La direction dans laquelle le joueur se deplace
-	  */
-	void move(const Direction& direction);
 
-	/**
-	 * @brief Verifie si la position du joueur est invalide
-	 * @return `true` si le joueur est dans une position invalide
-	 */
+
+	 /**
+	  * @brief Verifie si la position du joueur est invalide
+	  * @return `true` si le joueur est dans une position invalide
+	  */
 	bool isPositionNull() const { return position_ == nullptr; }
 	/**
 	 * @brief Getter pour la position actuelle du joueur
@@ -50,6 +46,12 @@ public:
 	 * @param position Pointeur partage vers la case actuelle du joueur
 	 */
 	void setPosition(Tile* position) { position_ = position; }
+
+	/**
+ * @brief Deplace le Player dans une direction donnee
+ * @param direction La direction dans laquelle le joueur se deplace
+ */
+	void moveInDirection(const Direction& direction);
 
 	bool take(Takeable& t) override;
 

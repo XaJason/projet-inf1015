@@ -95,7 +95,7 @@ void Game::startGame() {
 
 const string Game::moveInDirection(Direction direction)
 {
-	player_.move(direction);
+	player_.moveInDirection(direction);
 	return "Headed " + ::directionNames.at(direction)[1] + "\n\n" + look();
 }
 
