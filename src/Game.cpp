@@ -1,13 +1,17 @@
 ﻿#include "Constants.h"
 #include "Exceptions.h"
 #include "Game.h"
-#include <boost/algorithm/string.hpp>
 #include <functional>
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <unordered_map>
-#include <algorithm>
+#include <iosfwd>
+#include <stdexcept>
+#include "Direction.h"
+#include "Player.h"
+#include "TileMap.h"
+#include <boost/algorithm/string/case_conv.hpp>
+#include<sstream>
 
 using namespace std;
 using namespace boost::algorithm;
@@ -64,7 +68,7 @@ void Game::startGame() {
 		istringstream stream(input);
 		string actionWord, details;
 		stream >> actionWord;
-		
+
 		getline(stream, details);
 
 		try {
@@ -80,6 +84,9 @@ void Game::startGame() {
 		catch (const InvalidItem& e) {
 			cout << e.what() << endl;
 		}
+		catch (const InvalidAction& e) {
+			cout << e.what() << endl;
+		}
 		catch (const out_of_range&) {
 			cout << "Error: Invalid command!" << endl;
 		}
@@ -92,7 +99,7 @@ const string Game::moveInDirection(Direction direction)
 	return "Headed " + ::directionNames.at(direction)[1] + "\n\n" + look();
 }
 
-const string Game::look() const { return player_.look();  }
+const string Game::look() const { return player_.look(); }
 
 // TODO: Implement the look, take, and use methods
 const string Game::look(const string& details) const
@@ -102,12 +109,12 @@ const string Game::look(const string& details) const
 
 const string Game::take(const string& details)
 {
-	return "";
+	return player_.take(details);
 }
 
 const string Game::use(const string& details)
 {
-		return player_.use(details);
+	return player_.use(details);
 }
 
 const string Game::exit() {

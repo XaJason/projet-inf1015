@@ -1,9 +1,15 @@
 #include "Constants.h"
-#include "Tile.h"
-#include <boost/functional/hash.hpp>
-#include <unordered_map>
+#include "Direction.h"
+#include "Exceptions.h"
 #include "Item.h"
+#include "Tile.h"
+#include <iosfwd>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <utility>
 #include <boost/algorithm/string.hpp>
+#include "Player.h"
 
 using namespace std;
 using namespace boost::algorithm;
@@ -12,15 +18,19 @@ std::string Tile::look() const {
 	std::string result = "\t-- " + name_ + " --\n";
 	result += "\t" + description_ + "\n";
 
-	for (const auto& [direction, connection] : connections_) {
-		if (connection != nullptr) {
-			result += "\n\t" + connection->name_ + " is to the " + ::directionNames.at(direction)[0];
+	if (!connections_.empty()) {
+		for (const auto& [direction, connection] : connections_) {
+			if (connection != nullptr) {
+				result += "\n\t" + connection->name_ + " is to the " + ::directionNames.at(direction)[0];
+			}
 		}
 	}
 
-	result += "\n\nYou notice:";
-	for (const auto& item : items_) {
-		result += "\n\t" + item.second->getName();
+	if (!items_.empty()) {
+		result += "\n\nYou notice:";
+		for (const auto& item : items_) {
+			result += "\n\t" + item.second->getName();
+		}
 	}
 	return result;
 }
@@ -50,14 +60,18 @@ std::ostream& operator<<(std::ostream& outputStream, const Tile& tile)
 
 // TODO: Interface to avoid code repetition with Player
 const std::unordered_map<std::string, shared_ptr<Item>>::const_iterator Tile::getItemIterator(const string& details) const {
-	return find_if(items_.begin(), items_.end(), [&details](std::pair<const std::string, std::shared_ptr<Item>> item) {
+	auto&& iterator = find_if(items_.begin(), items_.end(), [&details](std::pair<const std::string, std::shared_ptr<Item>> item) {
 		return item.second->containsKeyword(details);
 		});
+	if (iterator == items_.end()) {
+		throw InvalidItem("Error : Item not found.");
+	}
+	return iterator;
 }
 
 bool Tile::operator==(const Tile& other) const
 {
-		return name_ == other.name_ && description_ == other.description_;
+	return name_ == other.name_ && description_ == other.description_;
 }
 
 void Tile::dualConnect(Tile* other, Direction direction) {
@@ -70,4 +84,17 @@ void Tile::dualConnect(Tile* other, Direction direction) {
 
 	connect(other, direction);
 	other->connect(this, inverseDirections.at(direction));
+}
+
+const string Tile::extractItem(const string& details, Player& player)
+{
+	std::unordered_map<std::string, shared_ptr<Item>>::const_iterator iterator = getItemIterator(details);
+	shared_ptr<Item> item = iterator->second;
+	if (item->isTakeable()) {
+		player.addItem(items_.extract(getItemIterator(details)));
+		return "You take " + item->getName() + ".";
+	}
+	else {
+		throw InvalidItem("Error: " + item->getName() + " is not takeable.");
+	}
 }

@@ -7,9 +7,11 @@
 */
 #pragma once
 #include "Actions.h"
+#include "Direction.h"
 #include "Tile.h"
+#include <iosfwd>
 #include <memory>
-#include <ostream>
+#include <string>
 #include <unordered_map>
 
 using namespace actions;
@@ -27,16 +29,11 @@ public:
 	 * @brief Constructeur par defaut d'un Player
 	 */
 
-	/**
-	 * @brief Deplace le Player dans une direction donnee
-	 * @param direction La direction dans laquelle le joueur se deplace
-	 */
+	 /**
+	  * @brief Deplace le Player dans une direction donnee
+	  * @param direction La direction dans laquelle le joueur se deplace
+	  */
 	void move(const Direction& direction);
-	/**
-	 * @brief Ajoute un objet a l'inventaire du Player
-	 * @param item L'objet a ajouter
-	 */
-	void addItem(std::shared_ptr<Item> item);
 
 	/**
 	 * @brief Verifie si la position du joueur est invalide
@@ -52,19 +49,25 @@ public:
 	 * @brief Setter pour la position actuelle du joueur
 	 * @param position Pointeur partage vers la case actuelle du joueur
 	 */
-	void setPosition(const Tile* position) { position_ = position; }
+	void setPosition(Tile* position) { position_ = position; }
 
 	bool take(Takeable& t) override;
 
 	bool use(Useable& u) override;
 
-	string use(const string& details);
+	const string take(const string& details);
+
+	const string use(const string& details);
 
 	const string look() const;
 
 	const string look(const string& details) const;
 
+	std::unordered_map<std::string, shared_ptr<Item>>::const_iterator findInInventory(const string& details) const;
+
 	std::unordered_map<std::string, shared_ptr<Item>>::const_iterator findItem(const string& details) const;
+
+	void addItem(std::unordered_map<std::string, std::shared_ptr<Item>>::node_type node);
 
 	/**
 	 * @brief Surcharge de l'operateur d'affichage du joueur
@@ -75,6 +78,6 @@ public:
 	friend std::ostream& operator<<(std::ostream& outputStream, const Player& player);
 
 private:
-	const Tile* position_; ///< Position actuelle du joueur
+	Tile* position_; ///< Position actuelle du joueur
 	std::unordered_map<std::string, shared_ptr<Item>> items_; ///< Inventaire des objets du joueur
 };

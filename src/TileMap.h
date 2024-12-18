@@ -56,7 +56,7 @@ public:
 	 * @brief Getter pour la premiere case du jeu
 	 * @return La premiere case du jeu
 	 */
-	const Tile* getStartingTile() const { return startingTile_; }
+	Tile* getStartingTile() const { return startingTile_; }
 
 	/**
 	 * @brief Acces a un element Tile selon le nom

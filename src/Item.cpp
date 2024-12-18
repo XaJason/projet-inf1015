@@ -1,9 +1,16 @@
-#include "Item.h"
-#include <iostream>
-#include "Player.h"
+#include "Actions.h"
+#include "Direction.h"
 #include "Exceptions.h"
+#include "Item.h"
+#include "Player.h"
+#include "Tile.h"
+#include <iosfwd>
+#include <iostream>
+#include <string>
+#include <unordered_set>
+#include <utility>
 
-Item::Item(const std::string& name, const std::string& description, const std::string& usage, const std::unordered_set<std::string>& keywords) : name_(name), description_(description), usage_(usage), keywords_(keywords) {}
+Item::Item(const std::string& name, const std::string& description, const std::string& usage, const std::unordered_set<std::string>& keywords, bool isTakeable) : name_(name), description_(description), usage_(usage), keywords_(keywords), isTakeable_(isTakeable) {}
 
 std::ostream& Item::look(std::ostream& os) {
 	return os << this->getDescription();
@@ -14,9 +21,9 @@ std::string Item::look() const
 	return getDescription();
 }
 
-bool Item::take(const Player& player)
+const string Item::take(Player& player)
 {
-	return false;
+	return "";
 }
 
 string Item::use([[maybe_unused]] Player& player)
@@ -50,7 +57,8 @@ string TrashItem::use(Player& player)
 	return "used TrashItem";
 }
 
-AccessItem::AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, const Tile* destination) : Item(name, description, "", keywords), destination_(destination)
+AccessItem::AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, bool isTakeable, Tile* destination)
+	: Item(name, description, "", keywords, isTakeable), destination_(destination)
 {
 }
 
@@ -71,14 +79,14 @@ bool Item::containsKeyword(const string& word)
 		return true;
 
 	for (const auto& keyword : keywords_)
-		{
-			if (word.find(keyword) != string::npos)
-				return true;
-		}
+	{
+		if (word.find(keyword) != string::npos)
+			return true;
+	}
 	return false;
 }
 
-KeyItem::KeyItem(const std::string& name, const std::string& description, const std::unordered_set<std::string>& keywords, const std::pair<Tile*, Tile*>& linkedTiles, const Direction& direction) : Item(name, description, "", keywords), linkedTiles_(linkedTiles), direction_(direction)
+KeyItem::KeyItem(const std::string& name, const std::string& description, const std::unordered_set<std::string>& keywords, bool isTakeable, const std::pair<Tile*, Tile*>& linkedTiles, const Direction& direction) : Item(name, description, "", keywords, isTakeable), linkedTiles_(linkedTiles), direction_(direction)
 {
 }
 
@@ -89,6 +97,11 @@ string KeyItem::use(Player& player)
 		return "A passage to " + linkedTiles_.second->getName() + " has been unlocked.";
 	}
 	else {
-		throw InvalidAction("The key doesn't seem to fit anywhere.");
+		throw InvalidAction(name_ + " doesn't seem to fit anywhere.");
 	}
+}
+
+bool Item::isTakeable() const
+{
+	return isTakeable_;
 }

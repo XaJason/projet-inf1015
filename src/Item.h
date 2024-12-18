@@ -1,19 +1,22 @@
 #pragma once
 #include "Actions.h"
-#include "TileMap.h"
+#include "Direction.h"
+#include "Tile.h"
+#include <iosfwd>
 #include <string>
 #include<unordered_set>
+#include <utility>
 
 using namespace actions;
 
 class Player;
 
-	/**
-	 * @class Item
-	 * @brief Represente un objet dans le monde du jeu
-	 *
-	 * La classe Item represente un objet pouvant etre collecte par le Player.
-	 */
+/**
+ * @class Item
+ * @brief Represente un objet dans le monde du jeu
+ *
+ * La classe Item represente un objet pouvant etre collecte par le Player.
+ */
 class Item : public Lookable, public Takeable, public Useable {
 public:
 	/**
@@ -21,7 +24,7 @@ public:
 	 * @param name Le nom de l'item
 	 * @param description La description de l'item
 	 */
-	Item(const std::string& name, const std::string& description, const std::string& usage, const std::unordered_set<std::string>& keywords = {});
+	Item(const std::string& name, const std::string& description, const std::string& usage, const std::unordered_set<std::string>& keywords, bool isTakeable = false);
 	/**
 	 * @brief Getter pour le nom associe a l'item
 	 * @return Le nom associe a l'item
@@ -46,7 +49,7 @@ public:
 	 * @param player La reference au Player qui prend l'item
 	 * @return true si l'item a ete ajoute a l'inventaire du joueur avec succes
 	 */
-	bool take(const Player& player);
+	const string take(Player& player);
 
 	/**
 	 * @brief Methode permettant d'utiliser un item.
@@ -57,9 +60,11 @@ public:
 
 	virtual const Tile* use() override;
 
-	 bool use(Taker& t) override;
+	bool use(Taker& t) override;
 
-	 bool containsKeyword(const string& word);
+	bool containsKeyword(const string& word);
+
+	bool isTakeable() const;
 
 	/**
 	 * @brief Surcharge de l'operateur d'affichage
@@ -69,8 +74,10 @@ public:
 	 */
 	friend std::ostream& operator<<(std::ostream& outputStream, const Item& item);
 
-private:
+protected:
 	std::string name_; ///< Nom associe a l'item
+private:
+	bool isTakeable_;
 	std::string description_; ///< Description de l'item
 	std::string usage_; ///< message d'utilisation de l'item
 	std::unordered_set<string> keywords_;
@@ -82,7 +89,7 @@ private:
  */
 class KeyItem : public Item {
 public:
-	KeyItem(const std::string& name, const std::string& description, const std::unordered_set<std::string>& keywords, const std::pair<Tile*, Tile*>& linkedTiles, const Direction& direction);
+	KeyItem(const std::string& name, const std::string& description, const std::unordered_set<std::string>& keywords, bool isTakeable, const std::pair<Tile*, Tile*>& linkedTiles, const Direction& direction);
 	string use(Player& player) override;
 private:
 	std::pair<Tile*, Tile*> linkedTiles_;
@@ -108,9 +115,9 @@ public:
 class AccessItem : public Item {
 public:
 	using Item::Item;
-	AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, const Tile* destination);
+	AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, bool isTakeable, Tile* destination);
 	string use(Player& player) override;
 	const Tile* use() override;
-private :
-	const Tile* destination_;
+private:
+	Tile* destination_;
 };

@@ -8,13 +8,14 @@
 #pragma once
 #include "Direction.h"
 #include "Actions.h"
-#include <array>
-#include <boost/functional/hash.hpp>
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <iosfwd>
+
 
 class Item;
+class Player;
 
 using namespace std;
 using namespace actions;
@@ -27,7 +28,7 @@ using namespace actions;
   * Elle peut etre connectee a d'autres cases dans les directions cardinales
   * et contenir des objets du jeu.
   */
-// TODO : derive de Taker (pour ajout d'items)
+  // TODO : derive de Taker (pour ajout d'items)
 class Tile : public Lookable {
 public:
 	/**
@@ -82,7 +83,7 @@ public:
 	 * @param direction La direction associee a la connection
 	 * @return Reference faible vers la case connectee a cette instance dans la direction donnee
 	 */
-	const Tile* getConnection(Direction direction) const {
+	Tile* getConnection(Direction direction) const {
 		auto it = connections_.find(direction);
 		if (it != connections_.end()) {
 			return it->second;
@@ -101,6 +102,7 @@ public:
 
 	bool operator==(const Tile& other) const;
 	void dualConnect(Tile* other, Direction direction);
+	const string extractItem(const string& details, Player& player);
 private:
 	std::string name_; ///< Le nom associe a la case
 	std::string description_; ///< La description de la case
