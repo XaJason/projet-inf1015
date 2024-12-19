@@ -88,7 +88,7 @@ void Game::startGame() {
 			cout << e.what() << endl;
 		}
 		catch (const out_of_range&) {
-			cout << "Do you need to be taken to a doctor?" << endl;
+			cout << "All work and no play makes Jack a dull boy, and all invalid commands make me a sad dungeon. Try something else, champ." << endl;
 		}
 	}
 }
