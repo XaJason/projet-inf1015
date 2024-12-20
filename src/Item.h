@@ -116,7 +116,7 @@ public:
 class AccessItem : public Item {
 public:
 	using Item::Item;
-	AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, bool isTakeable, Tile* destination);
+	AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, Tile* destination);
 	string use(Player& player) override;
 	const Tile* use() override;
 private:

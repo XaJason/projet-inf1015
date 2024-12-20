@@ -57,8 +57,8 @@ string TrashItem::use(Player& player)
 	return "used TrashItem";
 }
 
-AccessItem::AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, bool isTakeable, Tile* destination)
-	: Item(name, description, "", keywords, isTakeable), destination_(destination)
+AccessItem::AccessItem(const string& name, const string& description, const unordered_set<string>& keywords, Tile* destination)
+	: Item(name, description, "", keywords, false), destination_(destination)
 {
 }
 

@@ -64,7 +64,7 @@ const std::unordered_map<std::string, shared_ptr<Item>>::const_iterator Tile::ge
 		return item.second->containsKeyword(details);
 		});
 	if (iterator == items_.end()) {
-		throw InvalidItem("Is " + details + "in the room with us right now?");
+		throw InvalidItem("Is" + details + " in the room with us right now?");
 	}
 	return iterator;
 }

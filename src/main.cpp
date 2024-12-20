@@ -31,12 +31,13 @@ using namespace std::literals;
  * @brief
  */
 static TileMap buildLevel() {
+	// TILES
 	vector<Tile> tiles = {
-	Tile("Lobby", "Grand entrance hall with menacing Native totems and a lot of doors."),
+	Tile("Lobby", "Grand entrance hall with menacing Native totems."),
 	Tile("Colorado Lounge", "Abandoned bar. Mirrors reflect impossible scenes."),
 	Tile("Kitchen", "Industrial silence. Gleaming knife racks."),
 	Tile("Storage Room", "Yellowed newspapers. Dark hotel secrets."),
-	Tile("Ballroom", "Phantom dancers from 1921 still celebrate here."),
+	Tile("Ballroom", "Phantom dancers from 1921 still celebrate here. There's a door bearing a faint engraving: \"237\"."),
 	Tile("Room 237", "Rotting bathroom. Something moves in the tub."),
 	Tile("Boiler Room", "Hissing pipes. Rising pressure. Metal groans."),
 	Tile("Gold Hall", "Endless hexagonal carpet. Echoes of children's laughter."),
@@ -52,19 +53,21 @@ static TileMap buildLevel() {
 	map["Colorado Lounge"]->connect(map["Kitchen"], map["Lobby"], map["Boiler Room"], map["Ballroom"]);
 	map["Kitchen"]->connect(nullptr, map["Colorado Lounge"], map["Boiler Room"], map["Ballroom"]);
 	map["Storage Room"]->connect(map["Gold Hall"], nullptr, map["Lobby"], nullptr);
-	map["Ballroom"]->connect(nullptr, map["Gold Hall"], map["Colorado Lounge"], map["Room 237"]);
-	map["Room 237"]->connect(nullptr, map["Torrance Apartment"], map["Boiler Room"], nullptr);
+	map["Ballroom"]->connect(nullptr, map["Gold Hall"], map["Colorado Lounge"], nullptr);
+	map["Room 237"]->connect(nullptr, nullptr, nullptr, nullptr);
 	map["Boiler Room"]->connect(map["Kitchen"], map["Lobby"], nullptr, map["Colorado Lounge"]);
 	map["Gold Hall"]->connect(map["Ballroom"], map["Storage Room"], nullptr, map["Torrance Apartment"]);
-	map["Torrance Apartment"]->connect(map["Room 237"], map["Storage Room"], map["Gold Hall"], nullptr);
+	map["Torrance Apartment"]->connect(nullptr, map["Storage Room"], map["Gold Hall"], nullptr);
 
-
-
+	// ITEMS
 	unordered_set <string> ladderKeywords = { "golden", "ladder" };
-	map["Colorado Lounge"]->addItem(make_shared<AccessItem>("Golden ladder", "It looks old and smells ... rotten.", ladderKeywords, false, map["Gold Hall"]));
+	map["Colorado Lounge"]->addItem(make_shared<AccessItem>("Golden ladder", "It looks old and smells ... rotten.", ladderKeywords, map["Gold Hall"]));
 
-	unordered_set <string> keyKeywords = { "old", "key" };
-	map["Colorado Lounge"]->addItem(make_shared<KeyItem>("Old key", "It is rusty and quite old.", keyKeywords, true, make_pair<Tile*, Tile*>(map["Lobby"], map["Kitchen"]), Direction::south));
+	unordered_set <string> keyKeywords = { "key", "room 237" };
+	map["Colorado Lounge"]->addItem(make_shared<KeyItem>("Room 237 Key", "A brass key with \"237\" engraved on it.", keyKeywords, true, make_pair<Tile*, Tile*>(map["Ballroom"], map["Room 237"]), Direction::east));
+
+	unordered_set <string> axeKeywords = { "axe", "shiny", "fire axe" };
+	map["Torrance Apartment"]->addItem(make_shared<Item>("Shiny Axe", "A heavy fire axe, its blade gleaming menacingly.", "You swing the axe with force, hearing it thud into the wood. Jack would be proud.", axeKeywords, true));
 
 	return map;
 }
