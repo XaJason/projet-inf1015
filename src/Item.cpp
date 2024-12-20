@@ -65,7 +65,7 @@ AccessItem::AccessItem(const string& name, const string& description, const unor
 string AccessItem::use(Player& player)
 {
 	player.setPosition(destination_);
-	return  "You touched " + name_ + " and you have been teleported to the " + destination_->getName() + ".\n\n" + player.look();
+	return  "You touched the " + name_ + " and you have been teleported to the " + destination_->getName() + ".\n\n" + player.look();
 }
 
 const Tile* AccessItem::use()
