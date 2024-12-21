@@ -21,7 +21,7 @@ std::string Item::look() const
 	return getDescription();
 }
 
-const string Item::take(Player& player)
+const string Item::take(Player& /* player */)
 {
 	return "";
 }
@@ -36,7 +36,7 @@ const Tile* Item::use()
 	return nullptr;
 }
 
-bool Item::use(Taker& t)
+bool Item::use(Taker& /* t */)
 {
 	return false;
 }
@@ -47,12 +47,12 @@ std::ostream& operator<<(std::ostream& outputStream, const Item& item)
 }
 
 
-string CompassItem::use(Player& player)
+string CompassItem::use(Player& /* player */)
 {
 	return "used CompassItem";
 }
 
-string TrashItem::use(Player& player)
+string TrashItem::use(Player& /* player */)
 {
 	return "used TrashItem";
 }

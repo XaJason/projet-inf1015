@@ -26,12 +26,12 @@ void Player::moveInDirection(const Direction& direction) {
 }
 
 //TODO: Implement the take method
-bool Player::take(Takeable& t) {
+bool Player::take(Takeable& /* t */) {
 	return true;
 }
 
 //TODO: Implement the use method
-bool Player::use(Useable& u) {
+bool Player::use(Useable& /* u */) {
 	return true;
 }
 
